@@ -310,7 +310,7 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 /* Better Touch Targets */
-button, 
+button,
 a {
   min-height: 44px;
   min-width: 44px;
@@ -497,4 +497,4 @@ nav {
 @keyframes rotate {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-} 
+}

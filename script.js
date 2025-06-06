@@ -162,8 +162,8 @@ document.querySelectorAll('#mobile-menu a').forEach(link => {
 
 // Close mobile menu when clicking outside
 document.addEventListener('click', (e) => {
-  if (mobileMenu.classList.contains('active') && 
-      !mobileMenu.contains(e.target) && 
+  if (mobileMenu.classList.contains('active') &&
+      !mobileMenu.contains(e.target) &&
       !mobileMenuButton.contains(e.target)) {
     mobileMenuButton.classList.remove('active');
     mobileMenu.classList.remove('active');
@@ -210,4 +210,4 @@ document.addEventListener('mousemove', (e) => {
   const x = (window.innerWidth - e.pageX * 2) / 100;
   const y = (window.innerHeight - e.pageY * 2) / 100;
   hero.style.backgroundPosition = `${x}px ${y}px`;
-}); 
+});
