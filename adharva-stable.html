@@ -36,7 +36,6 @@
           <i class="fas fa-ellipsis-v"></i>
         </button>
         <ul class="desktop-menu flex flex-wrap justify-center gap-4 text-sm sm:text-base">
-          <li><a href="#about" class="hover:text-cyan-400 transition">About</a></li>
           <li><a href="#events" class="hover:text-cyan-400 transition">Events</a></li>
           <li><a href="#schedule" class="hover:text-cyan-400 transition">Schedule</a></li>
           <li><a href="#infrastructure" class="hover:text-cyan-400 transition">Infrastructure</a></li>
@@ -48,7 +47,6 @@
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="mobile-menu">
       <ul class="flex flex-col gap-2">
-        <li><a href="#about" class="hover:text-cyan-400 transition">About</a></li>
         <li><a href="#events" class="hover:text-cyan-400 transition">Events</a></li>
         <li><a href="#schedule" class="hover:text-cyan-400 transition">Schedule</a></li>
         <li><a href="#infrastructure" class="hover:text-cyan-400 transition">Infrastructure</a></li>
@@ -75,37 +73,6 @@
     </button>
   </section>
 
-  <!-- About Section -->
-  <section id="about" class="py-12 md:py-20 px-4 bg-black/50">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-cyan-400 mb-8 text-center">
-        About ADHARVA
-      </h2>
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="card-orbit bg-gray-900 p-6 rounded-lg">
-          <h3 class="text-xl font-bold text-cyan-400 mb-4">Fest Structure</h3>
-          <ul class="space-y-2 text-sm">
-            <li>🏫 10+ Participating Schools</li>
-            <li>👥 45 Students/School (30 Participants + 15 Non-participants)</li>
-            <li>👩🏫 2 Faculty Members/School (Compulsory)</li>
-            <li>🎪 2 Green Rooms/School</li>
-            <li>🛠️ 150 Volunteers Total</li>
-          </ul>
-        </div>
-        <div class="card-orbit bg-gray-900 p-6 rounded-lg">
-          <h3 class="text-xl font-bold text-cyan-400 mb-4">Venue Details</h3>
-          <ul class="space-y-2 text-sm">
-            <li>🏟️ Main Stage: Bharatiya Vidya Bhavan Manvila</li>
-            <li>🍔 Canteen: Munshi Cellar</li>
-            <li>🎭 Green Rooms: Vyasa & Munshi Block</li>
-            <li>📦 Storage: Classrooms 11 & 12</li>
-            <li>🚮 30 Waste Bins Across Campus</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Events Section -->
   <section id="events" class="py-12 md:py-20 px-4 bg-gray-900">
     <div class="max-w-6xl mx-auto">
@@ -115,7 +82,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Natya Sutra -->
         <div class="card-orbit bg-gray-800 p-6 rounded-lg">
-          <i class="fas fa-running text-3xl text-cyan-400 mb-4"></i>
+          <i class="fas fa-running text-3xl mb-4"></i>
           <h3 class="text-xl font-bold mb-2">Natya Sutra</h3>
           <p class="text-sm opacity-90 mb-4">
             8min performance + 2min setup<br>
@@ -130,7 +97,7 @@
 
         <!-- Yukti -->
         <div class="card-orbit bg-gray-800 p-6 rounded-lg">
-          <i class="fas fa-brain text-3xl text-cyan-400 mb-4"></i>
+          <i class="fas fa-brain text-3xl mb-4"></i>
           <h3 class="text-xl font-bold mb-2">Yukti (Quiz)</h3>
           <p class="text-sm opacity-90 mb-4">
             4 Rounds: Written, Oral, Buzzer, Picture<br>
@@ -144,7 +111,7 @@
 
         <!-- Naada Nirvana -->
         <div class="card-orbit bg-gray-800 p-6 rounded-lg">
-          <i class="fas fa-guitar text-3xl text-cyan-400 mb-4"></i>
+          <i class="fas fa-guitar text-3xl mb-4"></i>
           <h3 class="text-xl font-bold mb-2">Naada Nirvana</h3>
           <p class="text-sm opacity-90 mb-4">
             8min performance + 2min setup<br>
@@ -158,7 +125,7 @@
 
         <!-- Nataka -->
         <div class="card-orbit bg-gray-800 p-6 rounded-lg">
-          <i class="fas fa-film text-3xl text-cyan-400 mb-4"></i>
+          <i class="fas fa-film text-3xl mb-4"></i>
           <h3 class="text-xl font-bold mb-2">Nataka</h3>
           <p class="text-sm opacity-90 mb-4">
             3 Rounds: Plot, Script, Enactment<br>
@@ -172,7 +139,7 @@
 
         <!-- Nazakat -->
         <div class="card-orbit bg-gray-800 p-6 rounded-lg">
-          <i class="fas fa-tshirt text-3xl text-cyan-400 mb-4"></i>
+          <i class="fas fa-tshirt text-3xl mb-4"></i>
           <h3 class="text-xl font-bold mb-2">Nazakat</h3>
           <p class="text-sm opacity-90 mb-4">
             6min Stage Time/Team<br>
@@ -199,7 +166,7 @@
              onclick="showScheduleModal('6:00 AM', 'Volunteer Briefing', '150 volunteers report to Munshi Reception. ID checks and assignment distribution.')">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
-              <i class="fas fa-users text-cyan-400"></i>
+              <i class="fas fa-users"></i>
             </div>
             <div>
               <h3 class="font-bold">6:00 AM</h3>
@@ -213,7 +180,7 @@
              onclick="showScheduleModal('8:00 AM', 'Inauguration', 'Chief Guest: Alan Feldman. All schools assemble in Bharatiya Vidya Bhavan Manvila.')">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
-              <i class="fas fa-microphone text-cyan-400"></i>
+              <i class="fas fa-microphone"></i>
             </div>
             <div>
               <h3 class="font-bold">8:00–9:30 AM</h3>
@@ -227,7 +194,7 @@
              onclick="showScheduleModal('7:30 AM', 'School Registration', 'All participating schools must complete registration at Munshi Reception. ID cards will be distributed.')">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
-              <i class="fas fa-clipboard-check text-cyan-400"></i>
+              <i class="fas fa-clipboard-check"></i>
             </div>
             <div>
               <h3 class="font-bold">7:30 AM</h3>
@@ -240,7 +207,7 @@
              onclick="showScheduleModal('9:45 AM', 'Quiz & Nataka Round 1', 'Written round for Quiz and Plot development for Nataka competition.')">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
-              <i class="fas fa-pen text-cyan-400"></i>
+              <i class="fas fa-pen"></i>
             </div>
             <div>
               <h3 class="font-bold">9:45–10:30 AM</h3>
@@ -253,7 +220,7 @@
              onclick="showScheduleModal('10:00 AM', 'Band Competition', 'Naada Nirvana band competition begins. Each team gets 8 minutes performance time.')">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
-              <i class="fas fa-music text-cyan-400"></i>
+              <i class="fas fa-music"></i>
             </div>
             <div>
               <h3 class="font-bold">10:00 AM–12:30 PM</h3>
@@ -266,7 +233,7 @@
              onclick="showScheduleModal('11:00 AM', 'Quiz & Nataka Round 2', 'Oral round for Quiz and Script writing for Nataka competition.')">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
-              <i class="fas fa-microphone text-cyan-400"></i>
+              <i class="fas fa-microphone"></i>
             </div>
             <div>
               <h3 class="font-bold">11:00 AM–12:30 PM</h3>
@@ -279,7 +246,7 @@
              onclick="showScheduleModal('1:00 PM', 'Lunch Break', 'Lunch will be served at Munshi Cellar for all participants and faculty.')">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
-              <i class="fas fa-utensils text-cyan-400"></i>
+              <i class="fas fa-utensils"></i>
             </div>
             <div>
               <h3 class="font-bold">1:00–2:00 PM</h3>
@@ -292,7 +259,7 @@
              onclick="showScheduleModal('2:15 PM', 'Quiz Finals', 'Final rounds of Quiz competition including Buzzer and Picture rounds.')">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
-              <i class="fas fa-trophy text-cyan-400"></i>
+              <i class="fas fa-trophy"></i>
             </div>
             <div>
               <h3 class="font-bold">2:15–3:30 PM</h3>
@@ -305,7 +272,7 @@
              onclick="showScheduleModal('3:30 PM', 'Fashion Show & Nataka Finals', 'Nazakat fashion show and final enactment of Nataka competition.')">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
-              <i class="fas fa-tshirt text-cyan-400"></i>
+              <i class="fas fa-tshirt"></i>
             </div>
             <div>
               <h3 class="font-bold">3:30–4:30 PM</h3>
@@ -318,7 +285,7 @@
              onclick="showScheduleModal('4:30 PM', 'Dance Competition', 'Natya Sutra dance competition with 8-minute performances.')">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
-              <i class="fas fa-running text-cyan-400"></i>
+              <i class="fas fa-running"></i>
             </div>
             <div>
               <h3 class="font-bold">4:30–6:30 PM</h3>
@@ -331,7 +298,7 @@
              onclick="showScheduleModal('6:30 PM', 'Closing Ceremony', 'Award distribution and closing remarks.')">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
-              <i class="fas fa-award text-cyan-400"></i>
+              <i class="fas fa-award"></i>
             </div>
             <div>
               <h3 class="font-bold">6:30–7:30 PM</h3>
@@ -344,7 +311,7 @@
              onclick="showScheduleModal('7:30 PM', 'Concert', 'Final concert performance to conclude ADHARVA 2025.')">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
-              <i class="fas fa-star text-cyan-400"></i>
+              <i class="fas fa-star"></i>
             </div>
             <div>
               <h3 class="font-bold">7:30–9:00 PM</h3>
@@ -366,21 +333,21 @@
         <div class="card-orbit bg-gray-800 p-6 rounded-lg">
           <h3 class="text-xl font-bold text-cyan-400 mb-4">Technical Setup</h3>
           <ul class="space-y-2 text-sm">
-            <li>🎥 LED Walls: 500 sq.ft main, 100-200 sq.ft live</li>
-            <li>🔊 Professional Sound System</li>
-            <li>💡 Advanced Lighting Setup</li>
-            <li>🎤 Multiple Microphone Stations</li>
-            <li>🎹 Equipment for Band Competition</li>
+            <li>LED Walls: 500 sq.ft main, 100-200 sq.ft</li>
+            <li>Professional Sound System</li>
+            <li>Advanced Lighting Setup</li>
+            <li>Multiple Microphone Stations</li>
+            <li>Equipment for Band Competition</li>
           </ul>
         </div>
         <div class="card-orbit bg-gray-800 p-6 rounded-lg">
           <h3 class="text-xl font-bold text-cyan-400 mb-4">Logistics</h3>
           <ul class="space-y-2 text-sm">
-            <li>🚮 30 Waste Bins Across Campus</li>
-            <li>🏷️ 5 Entrance Banners</li>
-            <li>📢 20 Posters in School Vicinity</li>
-            <li>🏥 First Aid Stations</li>
-            <li>🔒 Locked Classroom Policy</li>
+            <li>30 Waste Bins Across Campus</li>
+            <li>5 Entrance Banners</li>
+            <li>20 Posters in School Vicinity</li>
+            <li>First Aid Stations</li>
+            <li>Locked Classroom Policy</li>
           </ul>
         </div>
       </div>
@@ -397,19 +364,19 @@
         <div class="card-orbit bg-gray-900 p-6 rounded-lg">
           <h3 class="text-xl font-bold text-cyan-400 mb-4">Core Team</h3>
           <ul class="space-y-2 text-sm">
-            <li>👥 4-5 Head Coordinators</li>
-            <li>🎯 6-8 Event Coordinators</li>
-            <li>🤝 6-10 Assistant Coordinators</li>
-            <li>🎭 5 Stage Coordinators</li>
+            <li>4-5 Head Coordinators</li>
+            <li>6-8 Event Coordinators</li>
+            <li>6-10 Assistant Coordinators</li>
+            <li>5 Stage Coordinators</li>
           </ul>
         </div>
         <div class="card-orbit bg-gray-900 p-6 rounded-lg">
           <h3 class="text-xl font-bold text-cyan-400 mb-4">Support Team</h3>
           <ul class="space-y-2 text-sm">
-            <li>👥 150 Total Volunteers</li>
-            <li>🏥 Medical Support Team</li>
-            <li>🔒 Security Personnel</li>
-            <li>🧹 Cleaning Staff</li>
+            <li>150 Total Volunteers</li>
+            <li>Medical Support Team</li>
+            <li>Security Personnel</li>
+            <li>Cleaning Staff</li>
           </ul>
         </div>
       </div>

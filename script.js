@@ -193,7 +193,7 @@ scrollTopButton.addEventListener('click', () => {
 
 // Explore button scroll function
 function scrollToAbout() {
-  document.querySelector('#about').scrollIntoView({
+  document.querySelector('#events').scrollIntoView({
     behavior: 'smooth'
   });
 }
