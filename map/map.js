@@ -27,9 +27,33 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.set(36, CAMERA_CONFIG.defaultHeight, 22);
 
 // Renderer setup
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({
+    antialias: false,  // Disable antialiasing for better performance
+    powerPreference: 'high-performance'  // Request high-performance GPU
+});
+renderer.setClearColor('#87ceeb'); // sky blue
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));  // Limit pixel ratio
+renderer.shadowMap.enabled = false;  // Disable shadows if not needed
 document.body.appendChild(renderer.domElement);
+
+// Performance monitoring
+let frameCount = 0;
+let lastTime = performance.now();
+let fps = 0;
+
+// Create FPS display
+const fpsDisplay = document.createElement('div');
+fpsDisplay.style.position = 'fixed';
+fpsDisplay.style.top = '10px';
+fpsDisplay.style.right = '10px';
+fpsDisplay.style.padding = '5px 10px';
+fpsDisplay.style.background = 'rgba(0, 0, 0, 0.7)';
+fpsDisplay.style.color = 'white';
+fpsDisplay.style.fontFamily = 'monospace';
+fpsDisplay.style.borderRadius = '3px';
+fpsDisplay.style.zIndex = '1000';
+document.body.appendChild(fpsDisplay);
 
 // Initialize controllers
 const cameraController = new CameraController(camera, document.body, scene);
@@ -88,6 +112,16 @@ window.addEventListener('orientationchange', () => {
 
 // Animation loop
 function animate() {
+    const currentTime = performance.now();
+    frameCount++;
+    
+    if (currentTime - lastTime >= 1000) {
+        fps = frameCount;
+        frameCount = 0;
+        lastTime = currentTime;
+        fpsDisplay.textContent = `FPS: ${fps}`;
+    }
+
     cameraController.update();
     movementController.update();
     renderer.render(scene, camera);
@@ -97,19 +131,40 @@ function animate() {
 const loader = new GLTFLoader();
 loader.load('school.glb', (gltf) => {
     const root = gltf.scene;
+    const mesh = root.children[0];
+
+    if (mesh.isMesh) {
+        const geometry = mesh.geometry;
+        geometry.attributes.position.setUsage(THREE.StaticDrawUsage);
+    }
+
     
     root.traverse((node) => {
         if (node.isMesh) {
             if (node.material) {
-                node.material.flatShading = false;
-                node.material.normalScale.set(2, 2);
-                node.material.roughness = 0.7;
-                node.material.metalness = 0.2;
+                const oldMat = node.material;
+
+                const texture = oldMat.map || null;
+                const normalMap = oldMat.normalMap || null;
+          
+                // Use MeshLambertMaterial for better shading while maintaining performance
+                node.material = new THREE.MeshLambertMaterial({
+                    map: texture,
+                    normalMap: normalMap,
+                    normalScale: new THREE.Vector2(1, 1),  // Adjust normal map intensity
+                    transparent: oldMat.transparent,
+                    opacity: oldMat.opacity,
+                    alphaTest: oldMat.alphaTest,
+                    depthWrite: oldMat.depthWrite
+                });
+
+                node.material.side = THREE.FrontSide;
             }
         }
     });
     
     scene.add(root);
+
     // Set up first person camera after model is loaded
     cameraController.setupFirstPersonCamera();
 });
