@@ -75,7 +75,7 @@ export class CameraController {
         }
 
         // If no intersection found, return default height
-        return highestY === -Infinity ? CAMERA_CONFIG.defaultHeight : highestY;
+        return highestY < -300 ? CAMERA_CONFIG.defaultHeight : highestY;
     }
 
     setupFirstPersonCamera() {
@@ -94,6 +94,10 @@ export class CameraController {
             this.lastExplorePosition.z
         );
         this.camera.up.set(0, 1, 0);
+
+        // Reset camera rotation to look horizontally
+        this.camera.rotation.set(0, 0, 0);
+        this.fpControls.getObject().rotation.set(0, 0, 0);
     }
 
     switchMode(mode) {
@@ -109,11 +113,15 @@ export class CameraController {
     }
 
     handleMouseDown(event) {
-        // Only handle pointer lock if we're in Explore mode and the click wasn't on a button, slider, or their containers
-        if (this.currentMode === MODES.EXPLORE && 
-            !event.target.closest('button') && 
-            !event.target.closest('input[type="range"]') &&
-            !event.target.closest('[data-no-pointer-lock]')) {
+        const touchesUI = event.target.closest('button') ||
+            event.target.closest('input[type="range"]') ||
+            event.target.closest('[data-no-pointer-lock]');
+
+        if (touchesUI) {
+            return;
+        }
+
+        if (this.currentMode === MODES.EXPLORE) {
             this.fpControls.lock();
         } else if (this.currentMode === MODES.TOP_DOWN) {
             this.isDragging = true;
