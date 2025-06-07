@@ -131,7 +131,12 @@ export class CameraController {
                 y: event.clientY - this.previousMousePosition.y
             };
 
-            const moveSpeed = 0.1;
+            // Scale move speed based on camera height
+            // Higher camera = faster movement, lower camera = slower movement
+            const baseMoveSpeed = 0.001;
+            const currentHeight = this.topDownCamera.position.y;
+            const moveSpeed = baseMoveSpeed * (currentHeight); // Scale with height
+
             this.topDownCamera.position.x -= deltaMove.x * moveSpeed;
             this.topDownCamera.position.z -= deltaMove.y * moveSpeed;
             this.topDownCamera.target.x = this.topDownCamera.position.x;
