@@ -122,25 +122,39 @@ let topDownCamera = {
     target: new THREE.Vector3(0, 0, 0)
 };
 
+// Store last explore mode position
+let lastExplorePosition = {
+    x: 36,
+    z: 22
+};
+
 function setupTopDownCamera() {
     // Disable first person controls
     fpControls.unlock();
     fpControls.enabled = false;
     
-    // Set up top-down view
-    camera.position.set(0, 50, 0);
-    camera.lookAt(0, 0, 0);
+    // Store current explore position before switching
+    if (currentMode === 'Explore') {
+        lastExplorePosition.x = camera.position.x;
+        lastExplorePosition.z = camera.position.z;
+    }
+    
+    // Set up top-down view while maintaining x/z position
+    camera.position.set(lastExplorePosition.x, 50, lastExplorePosition.z);
+    camera.lookAt(lastExplorePosition.x, 0, lastExplorePosition.z);
     camera.up.set(0, 1, 0);
     
     // Update the top-down camera state
     topDownCamera.position.copy(camera.position);
-    topDownCamera.target.set(0, 0, 0);
+    topDownCamera.target.set(lastExplorePosition.x, 0, lastExplorePosition.z);
 }
 
 function setupFirstPersonCamera() {
     // Enable first person controls
     fpControls.enabled = true;
-    camera.position.set(36, 27, 22);
+    
+    // Restore last explore position
+    camera.position.set(lastExplorePosition.x, 27, lastExplorePosition.z);
     camera.up.set(0, 1, 0);
 }
 
@@ -192,6 +206,10 @@ function onMouseMove(event) {
         topDownCamera.position.z -= deltaMove.y * moveSpeed;
         topDownCamera.target.x = topDownCamera.position.x;
         topDownCamera.target.z = topDownCamera.position.z;
+
+        // Update last explore position during top-down movement
+        lastExplorePosition.x = topDownCamera.position.x;
+        lastExplorePosition.z = topDownCamera.position.z;
 
         previousMousePosition = {
             x: event.clientX,
@@ -285,6 +303,9 @@ function animate() {
         camera.lookAt(topDownCamera.target);
     } else if (currentMode === 'Explore') {
         updateMovement();
+        // Update last explore position during movement
+        lastExplorePosition.x = camera.position.x;
+        lastExplorePosition.z = camera.position.z;
     }
     
     renderer.render(scene, camera);
