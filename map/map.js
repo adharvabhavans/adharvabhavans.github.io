@@ -302,6 +302,20 @@ document.addEventListener('mouseup', onMouseUp);
 const loader = new GLTFLoader();
 loader.load('school.glb', (gltf) => {
     const root = gltf.scene;
+    
+    // Traverse all meshes in the model
+    root.traverse((node) => {
+        if (node.isMesh) {
+            // Enhance normal-based shading
+            if (node.material) {
+                node.material.flatShading = false;
+                node.material.normalScale.set(2, 2); // Increase normal map intensity
+                node.material.roughness = 0.7; // Increase roughness for more contrast
+                node.material.metalness = 0.2; // Reduce metalness for more diffuse look
+            }
+        }
+    });
+    
     scene.add(root);
 });
 
