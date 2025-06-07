@@ -103,7 +103,11 @@ export class CameraController {
     }
 
     handleMouseDown(event) {
-        if (this.currentMode === MODES.EXPLORE && !event.target.closest('button')) {
+        // Only handle pointer lock if we're in Explore mode and the click wasn't on a button, slider, or their containers
+        if (this.currentMode === MODES.EXPLORE && 
+            !event.target.closest('button') && 
+            !event.target.closest('input[type="range"]') &&
+            !event.target.closest('[data-no-pointer-lock]')) {
             this.fpControls.lock();
         } else if (this.currentMode === MODES.TOP_DOWN) {
             this.isDragging = true;
@@ -171,5 +175,13 @@ export class CameraController {
 
     getCurrentMode() {
         return this.currentMode;
+    }
+
+    getTopDownHeight() {
+        return this.topDownCamera.position.y;
+    }
+
+    setTopDownHeight(height) {
+        this.topDownCamera.position.y = height;
     }
 } 

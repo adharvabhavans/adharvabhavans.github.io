@@ -67,4 +67,12 @@ export class MovementController {
         if (this.moveUp) controls.getObject().position.y += this.currentSpeed * delta;
         if (this.moveDown) controls.getObject().position.y -= this.currentSpeed * delta;
     }
+
+    getCurrentSpeed() {
+        return this.currentSpeed;
+    }
+
+    setSpeed(speed) {
+        this.currentSpeed = speed;
+    }
 }

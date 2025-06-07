@@ -3,12 +3,12 @@ to prevent dependency hell. Please update it if you change the `import`s of file
 
 ```
 constants
-camera:
-    constants
-lighting:
-    constants
-movement:
-    constants
-sky:
-    constants
+
+camera:     constants
+lighting:   constants
+movement:   constants
+sky:        constants
+ui:         constants
+
+map:        ui
 ```

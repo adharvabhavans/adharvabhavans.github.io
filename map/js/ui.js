@@ -1,0 +1,142 @@
+import { MODES, MOVEMENT_CONFIG, CAMERA_CONFIG } from './constants.js';
+
+export class UIController {
+    constructor(cameraController, movementController) {
+        this.cameraController = cameraController;
+        this.movementController = movementController;
+        this.createModeSelector();
+        this.createSlider();
+    }
+
+    createModeSelector() {
+        this.modeSelector = document.createElement('div');
+        this.modeSelector.style.position = 'fixed';
+        this.modeSelector.style.top = '20px';
+        this.modeSelector.style.left = '20px';
+        this.modeSelector.style.zIndex = '1000';
+        this.modeSelector.style.background = 'rgba(0, 0, 0, 0.7)';
+        this.modeSelector.style.padding = '10px';
+        this.modeSelector.style.borderRadius = '5px';
+        this.modeSelector.style.color = 'white';
+        this.modeSelector.style.fontFamily = 'Arial, sans-serif';
+        this.modeSelector.style.userSelect = 'none';
+        this.modeSelector.style.display = 'flex';
+        this.modeSelector.style.alignItems = 'center';
+        this.modeSelector.style.gap = '15px';
+
+        Object.values(MODES).forEach(mode => {
+            this.modeSelector.appendChild(this.createModeButton(mode));
+        });
+
+        document.body.appendChild(this.modeSelector);
+    }
+
+    createModeButton(mode) {
+        const button = document.createElement('button');
+        button.textContent = mode;
+        button.style.margin = '0 5px';
+        button.style.padding = '5px 10px';
+        button.style.border = 'none';
+        button.style.borderRadius = '3px';
+        button.style.cursor = 'pointer';
+        button.style.background = mode === MODES.EXPLORE ? '#00ced1' : '#333';
+        button.style.color = 'white';
+        button.disabled = mode === MODES.EXPLORE;
+        button.style.opacity = mode === MODES.EXPLORE ? '0.7' : '1';
+        button.style.cursor = mode === MODES.EXPLORE ? 'default' : 'pointer';
+        
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.cameraController.switchMode(mode);
+            this.updateUI();
+        });
+        return button;
+    }
+
+    createSlider() {
+        // Create container for slider and label
+        const sliderContainer = document.createElement('div');
+        sliderContainer.style.display = 'flex';
+        sliderContainer.style.alignItems = 'center';
+        sliderContainer.style.gap = '10px';
+        sliderContainer.style.padding = '5px 10px';
+        sliderContainer.style.borderRadius = '3px';
+        sliderContainer.style.cursor = 'default';
+        sliderContainer.dataset.noPointerLock = 'true'; // Add data attribute for pointer lock check
+
+        // Create label
+        this.sliderLabel = document.createElement('span');
+        this.sliderLabel.style.minWidth = '80px';
+        this.updateSliderLabel();
+
+        // Create slider
+        this.slider = document.createElement('input');
+        this.slider.type = 'range';
+        this.slider.style.width = '100px';
+        this.slider.style.height = '4px';
+        this.slider.style.webkitAppearance = 'none';
+        this.slider.style.background = '#333';
+        this.slider.style.borderRadius = '2px';
+        this.slider.style.outline = 'none';
+        this.slider.style.cursor = 'pointer';
+        this.slider.style.accentColor = '#00ced1';
+
+        // Set initial value and range
+        this.updateSliderRange();
+
+        // Add event listener
+        this.slider.addEventListener('input', () => this.handleSliderChange());
+
+        // Add elements to container
+        sliderContainer.appendChild(this.sliderLabel);
+        sliderContainer.appendChild(this.slider);
+
+        // Add container to mode selector
+        this.modeSelector.appendChild(sliderContainer);
+    }
+
+    updateSliderLabel() {
+        const mode = this.cameraController.getCurrentMode();
+        this.sliderLabel.textContent = mode === MODES.EXPLORE ? 'Speed:' : 'Zoom:';
+    }
+
+    updateSliderRange() {
+        const mode = this.cameraController.getCurrentMode();
+        if (mode === MODES.EXPLORE) {
+            this.slider.min = MOVEMENT_CONFIG.minSpeed;
+            this.slider.max = MOVEMENT_CONFIG.maxSpeed;
+            this.slider.step = MOVEMENT_CONFIG.speedChange;
+            this.slider.value = this.movementController.getCurrentSpeed();
+        } else {
+            this.slider.min = CAMERA_CONFIG.minTopDownHeight;
+            this.slider.max = CAMERA_CONFIG.maxTopDownHeight;
+            this.slider.step = 1;
+            this.slider.value = this.cameraController.getTopDownHeight();
+        }
+    }
+
+    handleSliderChange() {
+        const mode = this.cameraController.getCurrentMode();
+        if (mode === MODES.EXPLORE) {
+            this.movementController.setSpeed(parseFloat(this.slider.value));
+        } else {
+            this.cameraController.setTopDownHeight(parseFloat(this.slider.value));
+        }
+    }
+
+    updateUI() {
+        // Update mode buttons
+        this.modeSelector.querySelectorAll('button').forEach(button => {
+            const isSelected = button.textContent === this.cameraController.getCurrentMode();
+            button.style.background = isSelected ? '#00ced1' : '#333';
+            button.disabled = isSelected;
+            button.style.opacity = isSelected ? '0.7' : '1';
+            button.style.cursor = isSelected ? 'default' : 'pointer';
+        });
+
+        // Update slider
+        this.updateSliderLabel();
+        this.updateSliderRange();
+    }
+} 
