@@ -49,6 +49,43 @@ document.addEventListener('mousedown', (e) => cameraController.handleMouseDown(e
 document.addEventListener('mousemove', (e) => cameraController.handleMouseMove(e));
 document.addEventListener('mouseup', () => cameraController.handleMouseUp());
 
+// Handle window resize and orientation change
+const handleResize = () => {
+    console.log("resize: handleResize");
+    
+    // Get the actual viewport size
+    const width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    const height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    
+    // Get device pixel ratio
+    const pixelRatio = window.devicePixelRatio || 1;
+    
+    // Update camera aspect ratio
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    
+    // Update renderer size with pixel ratio
+    renderer.setPixelRatio(pixelRatio);
+    renderer.setSize(width, height, false);
+    
+    // Force canvas to fill viewport
+    renderer.domElement.style.width = '100vw';
+    renderer.domElement.style.height = '100vh';
+    renderer.domElement.style.position = 'fixed';
+    renderer.domElement.style.top = '0';
+    renderer.domElement.style.left = '0';
+};
+
+// Initial resize
+handleResize();
+
+window.addEventListener('resize', handleResize);
+window.addEventListener('orientationchange', () => {
+    console.log("resize: orientationchange");
+    // Add a small delay to ensure the orientation change is complete
+    setTimeout(handleResize, 300);
+});
+
 // Animation loop
 function animate() {
     cameraController.update();
