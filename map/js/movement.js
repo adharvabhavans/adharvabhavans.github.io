@@ -11,6 +11,7 @@ export class MovementController {
         this.moveRight = false;
         this.moveUp = false;
         this.moveDown = false;
+        this.previousTime = performance.now();
     }
 
     handleKeyDown(event) {
@@ -58,16 +59,22 @@ export class MovementController {
     }
 
     update() {
+        const time = performance.now();
+        const delta = (time - this.previousTime) / 1000;
+        
+        const actualSpeed = (Math.pow(this.currentSpeed, 3) * 7.0) + 5.0;
+                
         const controls = this.cameraController.getControls();
         if (this.cameraController.getCurrentMode() !== MODES.EXPLORE || !controls.isLocked) return;
         
-        const delta = 1;
-        if (this.moveForward) controls.moveForward(this.currentSpeed * delta);
-        if (this.moveBackward) controls.moveForward(-this.currentSpeed * delta);
-        if (this.moveLeft) controls.moveRight(-this.currentSpeed * delta);
-        if (this.moveRight) controls.moveRight(this.currentSpeed * delta);
-        if (this.moveUp) controls.getObject().position.y += this.currentSpeed * delta;
-        if (this.moveDown) controls.getObject().position.y -= this.currentSpeed * delta;
+        if (this.moveForward) controls.moveForward(actualSpeed * delta);
+        if (this.moveBackward) controls.moveForward(-actualSpeed * delta);
+        if (this.moveLeft) controls.moveRight(-actualSpeed * delta);
+        if (this.moveRight) controls.moveRight(actualSpeed * delta);
+        if (this.moveUp) controls.getObject().position.y += actualSpeed * delta;
+        if (this.moveDown) controls.getObject().position.y -= actualSpeed * delta;
+        
+        this.previousTime = time;
     }
 
     getCurrentSpeed() {

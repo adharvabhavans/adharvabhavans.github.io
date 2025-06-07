@@ -121,12 +121,24 @@ export class UIController {
         if (mode === MODES.EXPLORE) {
             this.movementController.setSpeed(parseFloat(this.slider.value));
         } else {
-            this.cameraController.setTopDownHeight(parseFloat(this.slider.value));
+            // Invert the value back for overview mode
+            const max = parseFloat(this.slider.max);
+            const min = parseFloat(this.slider.min);
+            const invertedValue = max - (parseFloat(this.slider.value) - min);
+            this.cameraController.setTopDownHeight(invertedValue);
         }
     }
 
     updateSliderValue(value) {
-        this.slider.value = value;
+        const mode = this.cameraController.getCurrentMode();
+        if (mode === MODES.TOP_DOWN) {
+            // Invert the value for overview mode
+            const max = parseFloat(this.slider.max);
+            const min = parseFloat(this.slider.min);
+            this.slider.value = max - (value - min);
+        } else {
+            this.slider.value = value;
+        }
     }
 
     updateUI() {
