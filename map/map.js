@@ -82,8 +82,13 @@ modeSelector.style.color = 'white';
 modeSelector.style.fontFamily = 'Arial, sans-serif';
 modeSelector.style.userSelect = 'none';
 
-const modes = ['Top Down', 'Explore'];
-let currentMode = 'Explore';
+const MODES = {
+    TOP_DOWN: 'Overview',
+    EXPLORE: 'Explore'
+};
+
+const modes = [MODES.TOP_DOWN, MODES.EXPLORE];
+let currentMode = MODES.EXPLORE;
 
 function createModeButton(mode) {
     const button = document.createElement('button');
@@ -134,7 +139,7 @@ function setupTopDownCamera() {
     fpControls.enabled = false;
     
     // Store current explore position before switching
-    if (currentMode === 'Explore') {
+    if (currentMode === MODES.EXPLORE) {
         lastExplorePosition.x = camera.position.x;
         lastExplorePosition.z = camera.position.z;
     }
@@ -173,7 +178,7 @@ function switchMode(mode) {
     });
 
     // Switch camera setup
-    if (mode === 'Top Down') {
+    if (mode === MODES.TOP_DOWN) {
         setupTopDownCamera();
     } else {
         setupFirstPersonCamera();
@@ -182,9 +187,9 @@ function switchMode(mode) {
 
 function onMouseDown(event) {
     // Only handle pointer lock if we're in Explore mode and the click wasn't on a button
-    if (currentMode === 'Explore' && !event.target.closest('button')) {
+    if (currentMode === MODES.EXPLORE && !event.target.closest('button')) {
         fpControls.lock();
-    } else if (currentMode === 'Top Down') {
+    } else if (currentMode === MODES.TOP_DOWN) {
         isDragging = true;
         previousMousePosition = {
             x: event.clientX,
@@ -194,7 +199,7 @@ function onMouseDown(event) {
 }
 
 function onMouseMove(event) {
-    if (currentMode === 'Top Down' && isDragging) {
+    if (currentMode === MODES.TOP_DOWN && isDragging) {
         const deltaMove = {
             x: event.clientX - previousMousePosition.x,
             y: event.clientY - previousMousePosition.y
@@ -239,7 +244,7 @@ let moveDown = false;
 
 // Event handlers
 function onKeyDown(event) {
-    if (currentMode !== 'Explore') return;
+    if (currentMode !== MODES.EXPLORE) return;
     
     switch (event.code) {
         case 'KeyW': moveForward = true; break;
@@ -252,7 +257,7 @@ function onKeyDown(event) {
 }
 
 function onKeyUp(event) {
-    if (currentMode !== 'Explore') return;
+    if (currentMode !== MODES.EXPLORE) return;
     
     switch (event.code) {
         case 'KeyW': moveForward = false; break;
@@ -265,14 +270,14 @@ function onKeyUp(event) {
 }
 
 function onWheel(event) {
-    if (currentMode === 'Explore') {
+    if (currentMode === MODES.EXPLORE) {
         if (event.deltaY < 0) {
             currentSpeed = Math.min(currentSpeed + speedChange, maxSpeed);
         } else {
             currentSpeed = Math.max(currentSpeed - speedChange, minSpeed);
         }
         console.log('Current speed:', currentSpeed);
-    } else if (currentMode === 'Top Down') {
+    } else if (currentMode === MODES.TOP_DOWN) {
         // Zoom in/out in top-down mode with proportional speed
         const baseZoomSpeed = 0.02;
         const currentHeight = topDownCamera.position.y;
@@ -284,7 +289,7 @@ function onWheel(event) {
 
 // Movement update
 function updateMovement() {
-    if (currentMode !== 'Explore' || !fpControls.isLocked) return;
+    if (currentMode !== MODES.EXPLORE || !fpControls.isLocked) return;
     
     const delta = 1;
     if (moveForward) fpControls.moveForward(currentSpeed * delta);
@@ -297,11 +302,11 @@ function updateMovement() {
 
 // Animation loop
 function animate() {
-    if (currentMode === 'Top Down') {
+    if (currentMode === MODES.TOP_DOWN) {
         // Update camera position and orientation for top-down mode
         camera.position.copy(topDownCamera.position);
         camera.lookAt(topDownCamera.target);
-    } else if (currentMode === 'Explore') {
+    } else if (currentMode === MODES.EXPLORE) {
         updateMovement();
         // Update last explore position during movement
         lastExplorePosition.x = camera.position.x;
