@@ -8,6 +8,7 @@ export class CameraController {
         this.domElement = domElement;
         this.scene = scene;
         this.currentMode = MODES.EXPLORE;
+        this.uiController = null;
         this.fpControls = new PointerLockControls(camera, domElement);
         this.isDragging = false;
         this.previousMousePosition = { x: 0, y: 0 };
@@ -20,6 +21,11 @@ export class CameraController {
             z: 22
         };
         this.raycaster = new THREE.Raycaster();
+        this.setupFirstPersonCamera();
+    }
+
+    setUIController(uiController) {
+        this.uiController = uiController;
     }
 
     setupTopDownCamera() {
@@ -156,6 +162,8 @@ export class CameraController {
                 CAMERA_CONFIG.minTopDownHeight,
                 Math.min(CAMERA_CONFIG.maxTopDownHeight, this.topDownCamera.position.y - delta)
             );
+            // Update slider value
+            this.uiController.updateSliderValue(this.topDownCamera.position.y);
         }
     }
 

@@ -125,6 +125,10 @@ export class UIController {
         }
     }
 
+    updateSliderValue(value) {
+        this.slider.value = value;
+    }
+
     updateUI() {
         // Update mode buttons
         this.modeSelector.querySelectorAll('button').forEach(button => {

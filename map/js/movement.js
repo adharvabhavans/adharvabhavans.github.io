@@ -3,6 +3,7 @@ import { MODES, MOVEMENT_CONFIG } from './constants.js';
 export class MovementController {
     constructor(cameraController) {
         this.cameraController = cameraController;
+        this.uiController = null;
         this.currentSpeed = MOVEMENT_CONFIG.moveSpeed;
         this.moveForward = false;
         this.moveBackward = false;
@@ -52,6 +53,7 @@ export class MovementController {
                 );
             }
             console.log('Current speed:', this.currentSpeed);
+            this.uiController.updateSliderValue(this.currentSpeed);
         }
     }
 
@@ -74,5 +76,9 @@ export class MovementController {
 
     setSpeed(speed) {
         this.currentSpeed = speed;
+    }
+
+    setUIController(uiController) {
+        this.uiController = uiController;
     }
 }

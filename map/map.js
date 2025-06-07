@@ -35,6 +35,8 @@ document.body.appendChild(renderer.domElement);
 const cameraController = new CameraController(camera, document.body, scene);
 const movementController = new MovementController(cameraController);
 const uiController = new UIController(cameraController, movementController);
+movementController.setUIController(uiController);
+cameraController.setUIController(uiController);
 
 // Event listeners
 document.addEventListener('keydown', (e) => movementController.handleKeyDown(e));
@@ -71,6 +73,8 @@ loader.load('school.glb', (gltf) => {
     });
     
     scene.add(root);
+    // Set up first person camera after model is loaded
+    cameraController.setupFirstPersonCamera();
 });
 
 // Start animation loop
