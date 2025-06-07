@@ -1,4 +1,4 @@
-import { MODES, MOVEMENT_CONFIG, CAMERA_CONFIG } from './constants.js';
+import { MODES, MOVEMENT_CONFIG, CAMERA_CONFIG, DEFAULT_MODE } from './constants.js';
 
 export class UIController {
     constructor(cameraController, movementController) {
@@ -44,11 +44,11 @@ export class UIController {
         button.style.border = 'none';
         button.style.borderRadius = '3px';
         button.style.cursor = 'pointer';
-        button.style.background = mode === MODES.EXPLORE ? '#00ced1' : '#333';
+        button.style.background = mode === DEFAULT_MODE ? '#00ced1' : '#333';
         button.style.color = 'white';
-        button.disabled = mode === MODES.EXPLORE;
-        button.style.opacity = mode === MODES.EXPLORE ? '0.7' : '1';
-        button.style.cursor = mode === MODES.EXPLORE ? 'default' : 'pointer';
+        button.disabled = mode === DEFAULT_MODE;
+        button.style.opacity = mode === DEFAULT_MODE ? '0.7' : '1';
+        button.style.cursor = mode === DEFAULT_MODE ? 'default' : 'pointer';
         
         button.addEventListener('click', (e) => {
             e.preventDefault();

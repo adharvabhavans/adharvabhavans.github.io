@@ -1,13 +1,13 @@
 import * as THREE from 'three';
 import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
-import { MODES, CAMERA_CONFIG } from './constants.js';
+import { MODES, CAMERA_CONFIG, DEFAULT_MODE } from './constants.js';
 
 export class CameraController {
     constructor(camera, domElement, scene) {
         this.camera = camera;
         this.domElement = domElement;
         this.scene = scene;
-        this.currentMode = MODES.EXPLORE;
+        this.currentMode = DEFAULT_MODE;
         this.uiController = null;
         this.fpControls = new PointerLockControls(camera, domElement);
         this.isDragging = false;

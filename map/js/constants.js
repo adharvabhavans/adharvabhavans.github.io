@@ -3,6 +3,8 @@ export const MODES = {
     EXPLORE: 'Explore'
 };
 
+export const DEFAULT_MODE = MODES.TOP_DOWN;
+
 export const MOVEMENT_CONFIG = {
     moveSpeed: 0.5,
     speedChange: 0.1,
