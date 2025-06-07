@@ -8,21 +8,26 @@ export class UIController {
         this.createSlider();
     }
 
+    createContainer() {
+        const container = document.createElement('div');
+        container.style.position = 'absolute';
+        container.style.zIndex = '1000';
+        container.style.background = 'rgba(0, 0, 0, 0.7)';
+        container.style.padding = '10px';
+        container.style.borderRadius = '5px';
+        container.style.color = 'white';
+        container.style.fontFamily = 'Arial, sans-serif';
+        container.style.userSelect = 'none';
+        container.style.display = 'flex';
+        container.style.alignItems = 'center';
+        container.style.gap = '0px';
+        return container;
+    }
+
     createModeSelector() {
-        this.modeSelector = document.createElement('div');
-        this.modeSelector.style.position = 'fixed';
+        this.modeSelector = this.createContainer();
         this.modeSelector.style.top = '20px';
         this.modeSelector.style.left = '20px';
-        this.modeSelector.style.zIndex = '1000';
-        this.modeSelector.style.background = 'rgba(0, 0, 0, 0.7)';
-        this.modeSelector.style.padding = '10px';
-        this.modeSelector.style.borderRadius = '5px';
-        this.modeSelector.style.color = 'white';
-        this.modeSelector.style.fontFamily = 'Arial, sans-serif';
-        this.modeSelector.style.userSelect = 'none';
-        this.modeSelector.style.display = 'flex';
-        this.modeSelector.style.alignItems = 'center';
-        this.modeSelector.style.gap = '15px';
 
         Object.values(MODES).forEach(mode => {
             this.modeSelector.appendChild(this.createModeButton(mode));
@@ -56,14 +61,18 @@ export class UIController {
 
     createSlider() {
         // Create container for slider and label
-        const sliderContainer = document.createElement('div');
-        sliderContainer.style.display = 'flex';
-        sliderContainer.style.alignItems = 'center';
-        sliderContainer.style.gap = '10px';
-        sliderContainer.style.padding = '5px 10px';
-        sliderContainer.style.borderRadius = '3px';
+        const sliderContainer = this.createContainer();
+        sliderContainer.style.top = '0';
+        sliderContainer.style.left = '100%';
+        sliderContainer.style.marginLeft = '10px';
         sliderContainer.style.cursor = 'default';
-        sliderContainer.dataset.noPointerLock = 'true'; // Add data attribute for pointer lock check
+        sliderContainer.style.gap = '0px';
+        sliderContainer.dataset.noPointerLock = 'true';
+
+        // Match height with mode selector
+        const modeSelectorHeight = this.modeSelector.getBoundingClientRect().height;
+        sliderContainer.style.height = `${modeSelectorHeight}px`;
+        sliderContainer.style.boxSizing = 'border-box';
 
         // Create label
         this.sliderLabel = document.createElement('span');
@@ -81,6 +90,7 @@ export class UIController {
         this.slider.style.outline = 'none';
         this.slider.style.cursor = 'pointer';
         this.slider.style.accentColor = '#00ced1';
+        this.slider.style.marginLeft = '-15px';
 
         // Set initial value and range
         this.updateSliderRange();
