@@ -174,22 +174,24 @@ document.addEventListener('click', (e) => {
 // Scroll to top button
 const scrollTopButton = document.getElementById('scroll-top');
 
-window.addEventListener('scroll', () => {
-  if (window.pageYOffset > 300) {
-    scrollTopButton.classList.add('visible');
-    document.querySelector('nav').classList.add('scrolled');
-  } else {
-    scrollTopButton.classList.remove('visible');
-    document.querySelector('nav').classList.remove('scrolled');
-  }
-});
-
-scrollTopButton.addEventListener('click', () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
+if (scrollTopButton) {
+  window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+      scrollTopButton.classList.add('visible');
+      document.querySelector('nav').classList.add('scrolled');
+    } else {
+      scrollTopButton.classList.remove('visible');
+      document.querySelector('nav').classList.remove('scrolled');
+    }
   });
-});
+
+  scrollTopButton.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+}
 
 // Explore button scroll function
 function scrollToAbout() {
