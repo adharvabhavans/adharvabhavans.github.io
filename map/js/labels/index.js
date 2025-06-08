@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
-import { MODES, CAMERA_CONFIG } from './constants.js';
+import { MODES, CAMERA_CONFIG } from '/map/js/constants.js';
 
 export class LabelManager {
     constructor(scene, camera) {
@@ -8,6 +8,7 @@ export class LabelManager {
         this.camera = camera;
         this.labels = new Map();
         this.raycaster = new THREE.Raycaster();
+        this.cameraController = null;
         
         // Create CSS2D renderer
         this.labelRenderer = new CSS2DRenderer();
@@ -18,6 +19,10 @@ export class LabelManager {
         this.labelRenderer.domElement.style.pointerEvents = 'none';
         this.labelRenderer.domElement.style.zIndex = '9999';
         document.body.appendChild(this.labelRenderer.domElement);
+    }
+
+    setCameraController(cameraController) {
+        this.cameraController = cameraController;
     }
 
     createLabel(text, xyPosition, className = '') {
@@ -78,7 +83,11 @@ export class LabelManager {
     }
 
     update(currentMode) {
-        if (currentMode === MODES.OVERVIEW) {
+        const visible = this.cameraController.getLabelsVisible();
+        this.labels.forEach(label => {
+            label.element.style.display = visible ? 'block' : 'none';
+        });
+        if (currentMode === MODES.OVERVIEW && visible) {
             this.labelRenderer.render(this.scene, this.camera);
         }
     }

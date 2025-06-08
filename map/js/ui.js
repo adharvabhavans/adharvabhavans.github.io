@@ -6,6 +6,8 @@ export class UIController {
         this.movementController = movementController;
         this.createModeSelector();
         this.createSlider();
+        this.createLabelToggle();
+        this.updateUI();
     }
 
     createContainer() {
@@ -103,6 +105,7 @@ export class UIController {
         sliderContainer.appendChild(this.slider);
 
         // Add container to mode selector
+        this.sliderContainer = sliderContainer;
         this.modeSelector.appendChild(sliderContainer);
     }
 
@@ -164,5 +167,38 @@ export class UIController {
         // Update slider
         this.updateSliderLabel();
         this.updateSliderRange();
+    }
+
+    createLabelToggle() {
+        const container = this.createContainer();
+        container.style.marginLeft = '187px';
+        container.style.paddingTop = '13px';
+        container.style.paddingBottom = '13px';
+
+        const toggle = document.createElement('input');
+        toggle.type = 'checkbox';
+        toggle.id = 'labelToggle';
+        toggle.checked = true;
+        toggle.style.marginRight = '8px';
+        toggle.style.verticalAlign = 'middle';
+
+        const label = document.createElement('label');
+        label.htmlFor = 'labelToggle';
+        label.textContent = 'Labels';
+        label.style.color = 'white';
+        label.style.fontFamily = 'Arial, sans-serif';
+        label.style.fontSize = '14px';
+        label.style.verticalAlign = 'middle';
+
+        container.appendChild(toggle);
+        container.appendChild(label);
+
+        toggle.addEventListener('change', (e) => {
+            this.cameraController.setLabelsVisible(e.target.checked);
+        });
+
+        this.sliderContainer.appendChild(container);
+
+        this.labelToggle = container;
     }
 } 

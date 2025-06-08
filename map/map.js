@@ -6,7 +6,8 @@ import { setupLighting } from './js/lighting.js';
 import { CameraController } from './js/camera.js';
 import { MovementController } from './js/movement.js';
 import { UIController } from './js/ui.js';
-import { LabelManager } from './js/labels.js';
+import { LabelManager } from './js/labels/index.js';
+import { LABEL_INFO } from './js/labels/constants.js';
 
 // Scene setup
 const scene = new THREE.Scene();
@@ -63,6 +64,7 @@ const uiController = new UIController(cameraController, movementController);
 const labelManager = new LabelManager(scene, camera);
 movementController.setUIController(uiController);
 cameraController.setUIController(uiController);
+labelManager.setCameraController(cameraController);
 
 // Event listeners
 document.addEventListener('keydown', (e) => movementController.handleKeyDown(e));
@@ -173,13 +175,10 @@ loader.load('school.glb', (gltf) => {
     // Set up first person camera after model is loaded
     cameraController.setupFirstPersonCamera();
 
-    labelManager.createLabel('Basketball Court', new THREE.Vector2(-15, -15));
-
-    labelManager.createLabel('Bhishma Block', new THREE.Vector2(-15, 10));
-    labelManager.createLabel('Vyasa Block', new THREE.Vector2(15, -53));
-    labelManager.createLabel('Gandhi (Nursery) Block', new THREE.Vector2(-30, -50));
-
-    labelManager.createLabel('Munshi Auditorium', new THREE.Vector2(60, 25));
+    // Create all labels from constants
+    Object.values(LABEL_INFO).forEach(labelInfo => {
+        labelManager.createLabel(labelInfo.name, labelInfo.position);
+    });
 });
 
 // Start animation loop

@@ -21,6 +21,7 @@ export class CameraController {
             z: 22
         };
         this.raycaster = new THREE.Raycaster();
+        this.labelsVisible = true;
         this.setupFirstPersonCamera();
     }
 
@@ -204,5 +205,13 @@ export class CameraController {
 
     setTopDownHeight(height) {
         this.topDownCamera.position.y = height;
+    }
+
+    setLabelsVisible(visible) {
+        this.labelsVisible = visible;
+    }
+
+    getLabelsVisible() {
+        return this.labelsVisible;
     }
 } 
