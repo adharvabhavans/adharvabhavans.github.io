@@ -82,12 +82,14 @@ export class LabelManager {
         }
     }
 
-    update(currentMode) {
-        const visible = this.cameraController.getLabelsVisible();
+    update() {
+        const currentMode = this.cameraController.getCurrentMode();
+        const visible = this.cameraController.getLabelsVisible() && currentMode === MODES.OVERVIEW;
+
         this.labels.forEach(label => {
             label.element.style.display = visible ? 'block' : 'none';
         });
-        if (currentMode === MODES.OVERVIEW && visible) {
+        if (visible) {
             this.labelRenderer.render(this.scene, this.camera);
         }
     }

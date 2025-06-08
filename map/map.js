@@ -131,7 +131,7 @@ function animate() {
 
     cameraController.update();
     movementController.update();
-    labelManager.update(cameraController.currentMode);
+    labelManager.update();
     renderer.render(scene, camera);
 }
 

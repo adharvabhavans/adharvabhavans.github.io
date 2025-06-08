@@ -167,6 +167,12 @@ export class UIController {
         // Update slider
         this.updateSliderLabel();
         this.updateSliderRange();
+
+        if (this.cameraController.getCurrentMode() === MODES.EXPLORE) {
+            this.labelToggle.style.display = 'none';
+        } else {
+            this.labelToggle.style.display = 'flex';
+        }
     }
 
     createLabelToggle() {
