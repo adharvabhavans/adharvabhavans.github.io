@@ -6,6 +6,7 @@ import { setupLighting } from './js/lighting.js';
 import { CameraController } from './js/camera.js';
 import { MovementController } from './js/movement.js';
 import { UIController } from './js/ui.js';
+import { LabelManager } from './js/labels.js';
 
 // Scene setup
 const scene = new THREE.Scene();
@@ -59,6 +60,7 @@ document.body.appendChild(fpsDisplay);
 const cameraController = new CameraController(camera, document.body, scene);
 const movementController = new MovementController(cameraController);
 const uiController = new UIController(cameraController, movementController);
+const labelManager = new LabelManager(scene, camera);
 movementController.setUIController(uiController);
 cameraController.setUIController(uiController);
 
@@ -92,6 +94,9 @@ const handleResize = () => {
     renderer.setPixelRatio(pixelRatio);
     renderer.setSize(width, height, false);
     
+    // Update label renderer
+    labelManager.handleResize();
+    
     // Force canvas to fill viewport
     renderer.domElement.style.width = '100vw';
     renderer.domElement.style.height = '100vh';
@@ -124,6 +129,7 @@ function animate() {
 
     cameraController.update();
     movementController.update();
+    labelManager.update(cameraController.currentMode);
     renderer.render(scene, camera);
 }
 
@@ -137,7 +143,6 @@ loader.load('school.glb', (gltf) => {
         const geometry = mesh.geometry;
         geometry.attributes.position.setUsage(THREE.StaticDrawUsage);
     }
-
     
     root.traverse((node) => {
         if (node.isMesh) {
@@ -167,6 +172,14 @@ loader.load('school.glb', (gltf) => {
 
     // Set up first person camera after model is loaded
     cameraController.setupFirstPersonCamera();
+
+    labelManager.createLabel('Basketball Court', new THREE.Vector2(-15, -15));
+
+    labelManager.createLabel('Bhishma Block', new THREE.Vector2(-15, 10));
+    labelManager.createLabel('Vyasa Block', new THREE.Vector2(15, -53));
+    labelManager.createLabel('Gandhi (Nursery) Block', new THREE.Vector2(-30, -50));
+
+    labelManager.createLabel('Munshi Auditorium', new THREE.Vector2(60, 25));
 });
 
 // Start animation loop

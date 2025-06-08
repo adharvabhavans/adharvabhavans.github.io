@@ -141,7 +141,7 @@ export class UIController {
 
     updateSliderValue(value) {
         const mode = this.cameraController.getCurrentMode();
-        if (mode === MODES.TOP_DOWN) {
+        if (mode === MODES.OVERVIEW) {
             // Invert the value for overview mode
             const max = parseFloat(this.slider.max);
             const min = parseFloat(this.slider.min);

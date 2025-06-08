@@ -1,9 +1,9 @@
 export const MODES = {
-    TOP_DOWN: 'Overview',
+    OVERVIEW: 'Overview',
     EXPLORE: 'Explore'
 };
 
-export const DEFAULT_MODE = MODES.TOP_DOWN;
+export const DEFAULT_MODE = MODES.OVERVIEW;
 
 export const MOVEMENT_CONFIG = {
     moveSpeed: 0.5,

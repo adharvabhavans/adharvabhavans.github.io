@@ -105,7 +105,7 @@ export class CameraController {
         
         this.currentMode = mode;
         
-        if (mode === MODES.TOP_DOWN) {
+        if (mode === MODES.OVERVIEW) {
             this.setupTopDownCamera();
         } else {
             this.setupFirstPersonCamera();
@@ -123,7 +123,7 @@ export class CameraController {
 
         if (this.currentMode === MODES.EXPLORE) {
             this.fpControls.lock();
-        } else if (this.currentMode === MODES.TOP_DOWN) {
+        } else if (this.currentMode === MODES.OVERVIEW) {
             this.isDragging = true;
             this.previousMousePosition = {
                 x: event.clientX,
@@ -133,7 +133,7 @@ export class CameraController {
     }
 
     handleMouseMove(event) {
-        if (this.currentMode === MODES.TOP_DOWN && this.isDragging) {
+        if (this.currentMode === MODES.OVERVIEW && this.isDragging) {
             const deltaMove = {
                 x: event.clientX - this.previousMousePosition.x,
                 y: event.clientY - this.previousMousePosition.y
@@ -165,7 +165,7 @@ export class CameraController {
     }
 
     handleWheel(event) {
-        if (this.currentMode === MODES.TOP_DOWN) {
+        if (this.currentMode === MODES.OVERVIEW) {
             // Zoom in/out in top-down mode with proportional speed
             const baseZoomSpeed = 0.02;
             const currentHeight = this.topDownCamera.position.y;
@@ -181,7 +181,7 @@ export class CameraController {
     }
 
     update() {
-        if (this.currentMode === MODES.TOP_DOWN) {
+        if (this.currentMode === MODES.OVERVIEW) {
             this.camera.position.copy(this.topDownCamera.position);
             this.camera.lookAt(this.topDownCamera.target);
         } else if (this.currentMode === MODES.EXPLORE) {
