@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Nataka - ADHARVA Fest 2025</title>
+
+  <meta name="description" content="Nataka - The theatrical competition at ADHARVA 2025. A test of creativity, teamwork, and dramatic skills." />
+  <meta name="keywords" content="Adharva, Nataka, Drama, Theater, Competition, Bharatiya Vidya Bhavan, Manvila, Trivandrum, 2025">
+
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" defer>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="bg-black/80 backdrop-blur-sm" aria-label="Main Navigation">
+    <div class="nav-container mx-auto">
+      <div class="flex items-center h-full w-full">
+        <a href="index.html">
+          <img src="logo.png" alt="ADHARVA 2025 logo" class="hidden md:block h-10 w-auto mr-4 lg:ml-2" style="object-fit:contain;" />
+        </a>
+        <div class="nav-title text-cyan-400 font-bold">ADHARVA 2025</div>
+        <button id="mobile-menu-button" class="mobile-menu-button md:hidden text-cyan-400 ml-auto" aria-label="Open menu" tabindex="0">
+          <i class="fas fa-ellipsis-v"></i>
+        </button>
+        <ul class="desktop-menu flex flex-wrap justify-center gap-4 text-sm sm:text-base">
+          <li><a href="index.html#events" class="hover:text-cyan-400 transition">Events</a></li>
+          <li><a href="index.html#schedule" class="hover:text-cyan-400 transition">Schedule</a></li>
+          <li><a href="index.html#infrastructure" class="hover:text-cyan-400 transition">Infrastructure</a></li>
+          <li><a href="index.html#team" class="hover:text-cyan-400 transition">Team</a></li>
+          <li><a href="index.html#contact" class="hover:text-cyan-400 transition">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu">
+      <ul class="flex flex-col gap-2">
+        <li><a href="index.html#events" class="hover:text-cyan-400 transition">Events</a></li>
+        <li><a href="index.html#schedule" class="hover:text-cyan-400 transition">Schedule</a></li>
+        <li><a href="index.html#infrastructure" class="hover:text-cyan-400 transition">Infrastructure</a></li>
+        <li><a href="index.html#team" class="hover:text-cyan-400 transition">Team</a></li>
+        <li><a href="index.html#contact" class="hover:text-cyan-400 transition">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section relative flex items-center justify-center px-4 text-center">
+    <div class="text-center w-full flex flex-col items-center">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold cosmic-glow mb-4">
+        Nataka
+      </h1>
+      <div class="h-1 w-24 bg-cyan-400 mx-auto mb-6"></div>
+      <p class="text-lg sm:text-xl md:text-2xl text-cyan-300">
+        The Art of Spontaneous Theater
+      </p>
+    </div>
+  </section>
+
+  <!-- Event Details Section -->
+  <section class="py-12 md:py-20 px-4 bg-gray-900">
+    <div class="max-w-4xl mx-auto">
+      <div class="card-orbit bg-gray-800 p-8 rounded-lg mb-8">
+        <h2 class="text-2xl font-bold text-cyan-400 mb-6">Event Overview</h2>
+        <div class="space-y-4">
+          <div class="flex items-start gap-4">
+            <i class="fas fa-users text-cyan-400 mt-1"></i>
+            <div>
+              <h3 class="font-bold mb-2">Team Composition</h3>
+              <p>• Maximum 3 members per team</p>
+              <p>• One team per school</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start gap-4">
+            <i class="fas fa-clock text-cyan-400 mt-1"></i>
+            <div>
+              <h3 class="font-bold mb-2">Time Structure</h3>
+              <p>• Round 1: 30 minutes for plot development</p>
+              <p>• Round 2: 1 hour for script writing</p>
+              <p>• Round 3: 15 minutes preparation + 15 minutes performance</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <i class="fas fa-theater-masks text-cyan-400 mt-1"></i>
+            <div>
+              <h3 class="font-bold mb-2">Performance Guidelines</h3>
+              <p>• Props must be school-approved</p>
+              <p>• Basic stage lighting will be provided</p>
+              <p>• No pre-written scripts allowed</p>
+              <p>• All dialogue must be in English</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <i class="fas fa-star text-cyan-400 mt-1"></i>
+            <div>
+              <h3 class="font-bold mb-2">Judging Criteria</h3>
+              <p>• Creativity and originality</p>
+              <p>• Team coordination</p>
+              <p>• Acting skills</p>
+              <p>• Stage presence</p>
+              <p>• Time management</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-orbit bg-gray-800 p-8 rounded-lg">
+        <h2 class="text-2xl font-bold text-cyan-400 mb-6">Important Notes</h2>
+        <div class="space-y-4">
+          <div class="flex items-start gap-4">
+            <i class="fas fa-exclamation-triangle text-cyan-400 mt-1"></i>
+            <div>
+              <h3 class="font-bold mb-2">Rules & Regulations</h3>
+              <p>• No controversial or inappropriate content</p>
+              <p>• Props must not damage school property</p>
+              <p>• Teams must report 15 minutes before their slot</p>
+              <p>• Time penalties for exceeding limits</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <i class="fas fa-trophy text-cyan-400 mt-1"></i>
+            <div>
+              <h3 class="font-bold mb-2">Prizes</h3>
+              <p>• First Place: Trophy + Certificate</p>
+              <p>• Second Place: Medal + Certificate</p>
+              <p>• Third Place: Medal + Certificate</p>
+              <p>• Best Actor: Special Recognition</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-12">
+      <a href="index.html#events" class="explore-btn">
+        <i class="fas fa-arrow-left mr-2"></i>Back to Events
+      </a>
+    </div>
+  </section>
+
+  <footer class="text-center py-6 text-cyan-300 opacity-80">
+    &copy; 2025 ADHARVA Fest | Bharatiya Vidya Bhavan, Manvila
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
