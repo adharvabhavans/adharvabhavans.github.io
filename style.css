@@ -374,6 +374,10 @@ section {
   transition: all 0.3s;
   z-index: 2;
   overflow: hidden;
+  margin-top: 2rem;
+  margin-bottom: 0;
+  width: auto;
+  max-width: none;
 }
 .explore-btn::before {
   content: '';
@@ -394,6 +398,23 @@ section {
 .explore-btn:hover::before {
   transform: scaleX(1);
   transform-origin: left;
+}
+@media (max-width: 600px) {
+  .explore-btn {
+    font-size: 1rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 1.2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 2.5rem;
+    width: 90%;
+    max-width: 320px;
+  }
+  .card-orbit {
+    margin-bottom: 1.5rem;
+  }
+  .bg-gray-900 {
+    padding-bottom: 5rem !important;
+  }
 }
 /* Navigation Styles */
 nav {
