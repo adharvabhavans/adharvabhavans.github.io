@@ -213,18 +213,21 @@ document.addEventListener('mousemove', (e) => {
   const y = (window.innerHeight - e.pageY * 2) / 100;
   hero.style.backgroundPosition = `${x}px ${y}px`;
 });
-// Add grid effect for gray sections
-document.addEventListener('mousemove', (e) => {
-    document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
-    document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
-    
-    // Update section positions for grid effect
-    document.querySelectorAll('.bg-gray-900').forEach(section => {
-        const rect = section.getBoundingClientRect();
-        section.style.setProperty('--section-x', `${rect.left}px`);
-        section.style.setProperty('--section-y', `${rect.top}px`);
+
+// Add grid effect for gray sections - desktop only
+if ('ontouchstart' in window === false) {  // Only run on non-touch devices
+    document.addEventListener('mousemove', (e) => {
+        document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+        document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+        
+        // Update section positions for grid effect
+        document.querySelectorAll('.bg-gray-900').forEach(section => {
+            const rect = section.getBoundingClientRect();
+            section.style.setProperty('--section-x', `${rect.left}px`);
+            section.style.setProperty('--section-y', `${rect.top}px`);
+        });
     });
-});
+}
 
 // === Event Status Indicator Logic ===
 

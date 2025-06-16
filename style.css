@@ -518,36 +518,46 @@ body::before {
     position: relative;
 }
 
-.bg-gray-900::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: 
-        linear-gradient(
-            to right,
-            rgba(103, 232, 249, 0.2) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            to bottom,
-            rgba(103, 232, 249, 0.2) 1px,
-            transparent 1px
+/* Grid effect for desktop only */
+@media (hover: hover) {  /* This targets devices that support hover (desktop) */
+    .bg-gray-900::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: 
+            linear-gradient(
+                to right,
+                rgba(103, 232, 249, 0.2) 1px,
+                transparent 1px
+            ),
+            linear-gradient(
+                to bottom,
+                rgba(103, 232, 249, 0.2) 1px,
+                transparent 1px
+            );
+        background-size: 50px 50px;
+        mask-image: radial-gradient(
+            700px circle at calc(var(--mouse-x) - var(--section-x)) calc(var(--mouse-y) - var(--section-y)),
+            black,
+            transparent 60%
         );
-    background-size: 50px 50px;
-    /* transform: rotate(30deg); */
-    mask-image: radial-gradient(
-        700px circle at calc(var(--mouse-x) - var(--section-x)) calc(var(--mouse-y) - var(--section-y)),
-        black,
-        transparent 60%
-    );
-    -webkit-mask-image: radial-gradient(
-        700px circle at calc(var(--mouse-x) - var(--section-x)) calc(var(--mouse-y) - var(--section-y)),
-        black,
-        transparent 60%
-    );
-    pointer-events: none;
-    z-index: 0;
+        -webkit-mask-image: radial-gradient(
+            700px circle at calc(var(--mouse-x) - var(--section-x)) calc(var(--mouse-y) - var(--section-y)),
+            black,
+            transparent 60%
+        );
+        pointer-events: none;
+        z-index: 0;
+    }
 }
+
+/* Remove grid effect on mobile */
+@media (hover: none) {
+    .bg-gray-900::before {
+        display: none;
+    }
+}
+
 hr {
   border: none;
   height: 1px;
