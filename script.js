@@ -225,3 +225,60 @@ document.addEventListener('mousemove', (e) => {
         section.style.setProperty('--section-y', `${rect.top}px`);
     });
 });
+
+// === Event Status Indicator Logic ===
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Map event display names to API keys (adjust as per your API response)
+  const eventNameMap = {
+    'Natya Sutra': 'Natya-Sutra',
+    'Yukti (Quiz)': 'Yukti',
+    'Naada Nirvana': 'Naada-Nirvana',
+    'Nataka': 'Nataka',
+    'Nazakat': 'Nazakat',
+  };
+
+  // Status mapping: API status -> { color, label }
+  const statusMap = {
+    'Started':   { color: 'green',  label: 'Started' },
+    'Ended':     { color: 'green',  label: 'Done' },
+    'Ongoing':   { color: 'yellow', label: 'In Progress' },
+    'Round1':    { color: 'blue',   label: 'Round 1' },
+    'Round2':    { color: 'blue',   label: 'Round 2' },
+    'Round3':    { color: 'blue',   label: 'Round 3' },
+    'Round4':    { color: 'blue',   label: 'Round 4' },
+    'Soon':      { color: 'blue',   label: 'Soon' },
+    'Delayed':   { color: 'orange', label: 'Delayed' },
+  };
+
+  // Helper: get event name from card
+  function getEventName(card) {
+    const h3 = card.querySelector('h3');
+    return h3 ? h3.textContent.trim() : '';
+  }
+
+  // Fetch event statuses from API
+  fetch('http://127.0.0.1:8000/api/v3/get/events')
+    .then(res => res.json())
+    .then(data => {
+      // data should be an array of { name, status }
+      document.querySelectorAll('.card-orbit').forEach(card => {
+        const eventName = getEventName(card);
+        const apiName = eventNameMap[eventName];
+        if (!apiName) return;
+        const event = (data || []).find(e => e.name === apiName);
+        const status = event ? event.status : null;
+        const map = statusMap[status] || { color: 'gray', label: status || 'Unknown' };
+        const indicator = card.querySelector('.event-status-indicator');
+        if (indicator) {
+          indicator.innerHTML = `<span class="status-dot ${map.color}"></span><span class="status-label">${map.label}</span>`;
+        }
+      });
+    })
+    .catch(err => {
+      // On error, show gray/unknown for all
+      document.querySelectorAll('.event-status-indicator').forEach(indicator => {
+        indicator.innerHTML = '<span class="status-dot gray"></span><span class="status-label">Unknown</span>';
+      });
+    });
+});
