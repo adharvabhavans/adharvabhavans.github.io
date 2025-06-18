@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>ADHARVA 2025 - Admin Panel</title>
+  <meta name="description" content="Admin panel for ADHARVA 2025 event management" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" defer>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="bg-black/80 backdrop-blur-sm" aria-label="Main Navigation">
+    <div class="nav-container mx-auto">
+      <div class="flex items-center h-full w-full">
+        <a href="index.html">
+          <img src="logo.png" alt="ADHARVA 2025 logo" class="hidden md:block h-10 w-auto mr-4 lg:ml-2" style="object-fit:contain;" />
+        </a>
+        <div class="nav-title text-cyan-400 font-bold">ADHARVA 2025</div>
+        <div class="ml-auto text-red-400 font-bold">ADMIN PANEL</div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section relative flex items-center justify-center px-4 text-center">
+    <div class="text-center w-full flex flex-col items-center">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold cosmic-glow mb-4">
+        Admin Panel
+      </h1>
+      <div class="h-1 w-24 bg-cyan-400 mx-auto mb-6"></div>
+      <p class="text-lg sm:text-xl md:text-2xl text-cyan-300">
+        Event Status Management
+      </p>
+    </div>
+  </section>
+
+  <!-- Admin Panel Section -->
+  <section class="py-12 md:py-20 px-4 bg-gray-900">
+    <div class="max-w-2xl mx-auto">
+      <!-- Status Update Form -->
+      <div class="card-orbit bg-gray-800 p-8 rounded-lg mb-8">
+        <h2 class="text-2xl font-bold text-cyan-400 mb-6">Update Event Status</h2>
+        
+        <form id="statusForm" class="space-y-6">
+          <!-- Event Selection -->
+          <div class="flex items-start gap-4">
+            <i class="fas fa-calendar text-cyan-400 mt-1"></i>
+            <div class="flex-1">
+              <label for="eventName" class="block font-bold mb-2">Event Name</label>
+              <select id="eventName" name="eventName" required class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-cyan-400 focus:outline-none">
+                <option value="">Select an event...</option>
+                <option value="Natya-Sutra">Natya Sutra</option>
+                <option value="Yukti">Yukti (Quiz)</option>
+                <option value="Naada-Nirvana">Naada Nirvana</option>
+                <option value="Nataka">Nataka</option>
+                <option value="Nazakat">Nazakat</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Status Selection -->
+          <div class="flex items-start gap-4">
+            <i class="fas fa-toggle-on text-cyan-400 mt-1"></i>
+            <div class="flex-1">
+              <label for="status" class="block font-bold mb-2">New Status</label>
+              <select id="status" name="status" required class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-cyan-400 focus:outline-none">
+                <option value="">Select status...</option>
+                <option value="Started">Started</option>
+                <option value="Ended">Ended</option>
+                <option value="Round1">Round 1</option>
+                <option value="Round2">Round 2</option>
+                <option value="Round3">Round 3</option>
+                <option value="Round4">Round 4</option>
+                <option value="Ongoing">Ongoing</option>
+                <option value="Delayed">Delayed</option>
+                <option value="Soon">Soon</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- API Key -->
+          <div class="flex items-start gap-4">
+            <i class="fas fa-key text-cyan-400 mt-1"></i>
+            <div class="flex-1">
+              <label for="apiKey" class="block font-bold mb-2">API Key</label>
+              <input type="password" id="apiKey" name="apiKey" required 
+                     placeholder="Enter your API key..." 
+                     class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-cyan-400 focus:outline-none">
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="flex items-center gap-4 pt-4">
+            <i class="fas fa-paper-plane text-cyan-400"></i>
+            <button type="submit" class="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200">
+              <i class="fas fa-sync-alt mr-2"></i>Update Status
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Current Status Display -->
+      <div class="card-orbit bg-gray-800 p-8 rounded-lg mb-8">
+        <h2 class="text-2xl font-bold text-cyan-400 mb-6">Current Event Statuses</h2>
+        <div id="currentStatuses" class="space-y-4">
+          <!-- Statuses will be loaded here -->
+          <div class="text-center text-gray-400">
+            <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+            <p>Loading current statuses...</p>
+          </div>
+        </div>
+        <div class="mt-6 text-center">
+          <button onclick="refreshStatuses()" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200">
+            <i class="fas fa-refresh mr-2"></i>Refresh Statuses
+          </button>
+        </div>
+      </div>
+
+      <!-- Response Log -->
+      <div class="card-orbit bg-gray-800 p-8 rounded-lg">
+        <h2 class="text-2xl font-bold text-cyan-400 mb-6">Response Log</h2>
+        <div id="responseLog" class="bg-gray-900 p-4 rounded-lg max-h-64 overflow-y-auto">
+          <div class="text-gray-400 text-sm">No responses yet...</div>
+        </div>
+        <div class="mt-4 text-center">
+          <button onclick="clearLog()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200">
+            <i class="fas fa-trash mr-2"></i>Clear Log
+          </button>
+        </div>
+      </div>
+
+      <!-- Back to Main Site -->
+      <div class="text-center mt-12">
+        <a href="index.html" class="explore-btn">
+          <i class="fas fa-home mr-2"></i>Back to Main Site
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="text-center py-6 text-cyan-300 opacity-80">
+    &copy; 2025 ADHARVA Fest | Admin Panel
+  </footer>
+
+  <script>
+    // API Configuration
+    const API_BASE_URL = 'http://127.0.0.1:8000';
+    
+    // Load current statuses on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      refreshStatuses();
+    });
+
+    // Handle form submission
+    document.getElementById('statusForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const eventName = document.getElementById('eventName').value;
+      const status = document.getElementById('status').value;
+      const apiKey = document.getElementById('apiKey').value;
+      
+      if (!eventName || !status || !apiKey) {
+        logResponse('error', 'Please fill in all fields');
+        return;
+      }
+      
+      // Show loading state
+      const submitBtn = document.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Updating...';
+      submitBtn.disabled = true;
+      
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/v3/update/${eventName}/${status}`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${apiKey}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+          logResponse('success', `Successfully updated ${eventName} to ${status}`);
+          refreshStatuses(); // Refresh the status display
+        } else {
+          logResponse('error', `Failed to update: ${result.message || response.statusText}`);
+        }
+      } catch (error) {
+        logResponse('error', `Network error: ${error.message}`);
+      } finally {
+        // Reset button state
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+      }
+    });
+
+    // Function to refresh current statuses
+    async function refreshStatuses() {
+      const statusesContainer = document.getElementById('currentStatuses');
+      statusesContainer.innerHTML = '<div class="text-center text-gray-400"><i class="fas fa-spinner fa-spin text-2xl mb-2"></i><p>Loading...</p></div>';
+      
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/v3/get/events`);
+        const events = await response.json();
+        
+        if (response.ok) {
+          let statusesHTML = '';
+          events.forEach(event => {
+            const statusColor = getStatusColor(event.status);
+            statusesHTML += `
+              <div class="flex items-center justify-between p-4 bg-gray-700 rounded-lg">
+                <div class="flex items-center gap-3">
+                  <i class="fas fa-circle text-${statusColor}"></i>
+                  <span class="font-bold">${event.name}</span>
+                </div>
+                <span class="text-${statusColor} font-semibold">${event.status}</span>
+              </div>
+            `;
+          });
+          statusesContainer.innerHTML = statusesHTML;
+        } else {
+          statusesContainer.innerHTML = '<div class="text-center text-red-400"><i class="fas fa-exclamation-triangle text-2xl mb-2"></i><p>Failed to load statuses</p></div>';
+        }
+      } catch (error) {
+        statusesContainer.innerHTML = '<div class="text-center text-red-400"><i class="fas fa-exclamation-triangle text-2xl mb-2"></i><p>Network error</p></div>';
+      }
+    }
+
+    // Function to get status color
+    function getStatusColor(status) {
+      const colors = {
+        'Started': 'green-400',
+        'Ended': 'green-500',
+        'Ongoing': 'yellow-400',
+        'Soon': 'blue-400',
+        'Delayed': 'orange-400',
+        'Round1': 'blue-400',
+        'Round2': 'blue-400',
+        'Round3': 'blue-400',
+        'Round4': 'blue-400'
+      };
+      return colors[status] || 'gray-400';
+    }
+
+    // Function to log responses
+    function logResponse(type, message) {
+      const logContainer = document.getElementById('responseLog');
+      const timestamp = new Date().toLocaleTimeString();
+      const icon = type === 'success' ? 'fas fa-check-circle text-green-400' : 'fas fa-exclamation-circle text-red-400';
+      
+      const logEntry = document.createElement('div');
+      logEntry.className = 'flex items-center gap-2 mb-2 text-sm';
+      logEntry.innerHTML = `
+        <i class="${icon}"></i>
+        <span class="text-gray-300">[${timestamp}]</span>
+        <span class="text-white">${message}</span>
+      `;
+      
+      logContainer.appendChild(logEntry);
+      logContainer.scrollTop = logContainer.scrollHeight;
+    }
+
+    // Function to clear log
+    function clearLog() {
+      document.getElementById('responseLog').innerHTML = '<div class="text-gray-400 text-sm">Log cleared...</div>';
+    }
+  </script>
+</body>
+</html> 
