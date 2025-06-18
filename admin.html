@@ -39,11 +39,44 @@
   <!-- Admin Panel Section -->
   <section class="py-12 md:py-20 px-4 bg-gray-900">
     <div class="max-w-2xl mx-auto">
+      <!-- API Key Setup (if not stored) -->
+      <div id="apiKeySetup" class="card-orbit bg-gray-800 p-8 rounded-lg mb-8" style="display: none;">
+        <h2 class="text-2xl font-bold text-cyan-400 mb-6">API Key Setup</h2>
+        <div class="space-y-4">
+          <div class="flex items-start gap-4">
+            <i class="fas fa-key text-cyan-400 mt-1"></i>
+            <div class="flex-1">
+              <label for="initialApiKey" class="block font-bold mb-2">Enter API Key</label>
+              <input type="password" id="initialApiKey" 
+                     placeholder="Enter your API key..." 
+                     class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-cyan-400 focus:outline-none">
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="checkbox" id="rememberKey" class="rounded border-gray-600 bg-gray-700 text-cyan-400 focus:ring-cyan-400">
+            <label for="rememberKey" class="text-sm">Remember API key for this browser</label>
+          </div>
+          <button onclick="saveApiKey()" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200">
+            <i class="fas fa-save mr-2"></i>Save API Key
+          </button>
+        </div>
+      </div>
+
       <!-- Status Update Form -->
-      <div class="card-orbit bg-gray-800 p-8 rounded-lg mb-8">
-        <h2 class="text-2xl font-bold text-cyan-400 mb-6">Update Event Status</h2>
+      <div id="statusForm" class="card-orbit bg-gray-800 p-8 rounded-lg mb-8" style="display: none;">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-2xl font-bold text-cyan-400">Update Event Status</h2>
+          <div class="flex items-center gap-2">
+            <span class="text-green-400 text-sm">
+              <i class="fas fa-check-circle mr-1"></i>API Key Saved
+            </span>
+            <button onclick="changeApiKey()" class="text-cyan-400 hover:text-cyan-300 text-sm">
+              <i class="fas fa-edit mr-1"></i>Change
+            </button>
+          </div>
+        </div>
         
-        <form id="statusForm" class="space-y-6">
+        <form id="updateForm" class="space-y-6">
           <!-- Event Selection -->
           <div class="flex items-start gap-4">
             <i class="fas fa-calendar text-cyan-400 mt-1"></i>
@@ -77,17 +110,6 @@
                 <option value="Delayed">Delayed</option>
                 <option value="Soon">Soon</option>
               </select>
-            </div>
-          </div>
-
-          <!-- API Key -->
-          <div class="flex items-start gap-4">
-            <i class="fas fa-key text-cyan-400 mt-1"></i>
-            <div class="flex-1">
-              <label for="apiKey" class="block font-bold mb-2">API Key</label>
-              <input type="password" id="apiKey" name="apiKey" required 
-                     placeholder="Enter your API key..." 
-                     class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-cyan-400 focus:outline-none">
             </div>
           </div>
 
@@ -147,22 +169,83 @@
   <script>
     // API Configuration
     const API_BASE_URL = 'http://127.0.0.1:8000';
+    const STORAGE_KEY = 'adharva_admin_api_key';
     
-    // Load current statuses on page load
+    // Check for stored API key on page load
     document.addEventListener('DOMContentLoaded', function() {
-      refreshStatuses();
+      const storedApiKey = localStorage.getItem(STORAGE_KEY);
+      
+      if (storedApiKey) {
+        // API key exists, show the main form
+        document.getElementById('apiKeySetup').style.display = 'none';
+        document.getElementById('statusForm').style.display = 'block';
+        refreshStatuses();
+      } else {
+        // No API key, show setup form
+        document.getElementById('apiKeySetup').style.display = 'block';
+        document.getElementById('statusForm').style.display = 'none';
+      }
     });
 
+    // Function to save API key
+    function saveApiKey() {
+      const apiKey = document.getElementById('initialApiKey').value;
+      const rememberKey = document.getElementById('rememberKey').checked;
+      
+      if (!apiKey) {
+        logResponse('error', 'Please enter an API key');
+        return;
+      }
+      
+      if (rememberKey) {
+        localStorage.setItem(STORAGE_KEY, apiKey);
+        logResponse('success', 'API key saved to browser storage');
+      } else {
+        sessionStorage.setItem(STORAGE_KEY, apiKey);
+        logResponse('success', 'API key saved for this session only');
+      }
+      
+      // Switch to main form
+      document.getElementById('apiKeySetup').style.display = 'none';
+      document.getElementById('statusForm').style.display = 'block';
+      refreshStatuses();
+    }
+
+    // Function to change API key
+    function changeApiKey() {
+      // Clear stored key
+      localStorage.removeItem(STORAGE_KEY);
+      sessionStorage.removeItem(STORAGE_KEY);
+      
+      // Switch back to setup form
+      document.getElementById('apiKeySetup').style.display = 'block';
+      document.getElementById('statusForm').style.display = 'none';
+      document.getElementById('initialApiKey').value = '';
+      document.getElementById('rememberKey').checked = false;
+      
+      logResponse('info', 'API key cleared. Please enter a new one.');
+    }
+
+    // Function to get stored API key
+    function getStoredApiKey() {
+      return localStorage.getItem(STORAGE_KEY) || sessionStorage.getItem(STORAGE_KEY);
+    }
+
     // Handle form submission
-    document.getElementById('statusForm').addEventListener('submit', async function(e) {
+    document.getElementById('updateForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       
       const eventName = document.getElementById('eventName').value;
       const status = document.getElementById('status').value;
-      const apiKey = document.getElementById('apiKey').value;
+      const apiKey = getStoredApiKey();
       
-      if (!eventName || !status || !apiKey) {
+      if (!eventName || !status) {
         logResponse('error', 'Please fill in all fields');
+        return;
+      }
+      
+      if (!apiKey) {
+        logResponse('error', 'No API key found. Please set up your API key.');
         return;
       }
       
@@ -186,6 +269,10 @@
         if (response.ok) {
           logResponse('success', `Successfully updated ${eventName} to ${status}`);
           refreshStatuses(); // Refresh the status display
+          
+          // Clear form
+          document.getElementById('eventName').value = '';
+          document.getElementById('status').value = '';
         } else {
           logResponse('error', `Failed to update: ${result.message || response.statusText}`);
         }
@@ -250,12 +337,30 @@
     function logResponse(type, message) {
       const logContainer = document.getElementById('responseLog');
       const timestamp = new Date().toLocaleTimeString();
-      const icon = type === 'success' ? 'fas fa-check-circle text-green-400' : 'fas fa-exclamation-circle text-red-400';
+      
+      let icon, color;
+      switch(type) {
+        case 'success':
+          icon = 'fas fa-check-circle';
+          color = 'text-green-400';
+          break;
+        case 'error':
+          icon = 'fas fa-exclamation-circle';
+          color = 'text-red-400';
+          break;
+        case 'info':
+          icon = 'fas fa-info-circle';
+          color = 'text-blue-400';
+          break;
+        default:
+          icon = 'fas fa-info-circle';
+          color = 'text-gray-400';
+      }
       
       const logEntry = document.createElement('div');
       logEntry.className = 'flex items-center gap-2 mb-2 text-sm';
       logEntry.innerHTML = `
-        <i class="${icon}"></i>
+        <i class="${icon} ${color}"></i>
         <span class="text-gray-300">[${timestamp}]</span>
         <span class="text-white">${message}</span>
       `;
