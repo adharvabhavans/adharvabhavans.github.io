@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>ADHARVA 2025 - Admin Panel</title>
+  <meta name="description" content="Admin panel for ADHARVA 2025 event management" />
+  <link rel="icon" type="image/svg+xml" href="../assets/Adharva-logo-monchrome.svg">
+  <link rel="alternate icon" type="image/x-icon" href="../assets/favicon.ico">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" defer>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="bg-black/80 backdrop-blur-sm" aria-label="Main Navigation">
+    <div class="nav-container mx-auto">
+      <div class="flex items-center h-full w-full">
+        <a href="../index.html">
+          <img src="../assets/Adharva-logo-monchrome.svg" alt="Adharva Logo" class="h-10 w-auto" />
+        </a>
+        <div class="nav-title text-cyan-400 font-bold">ADHARVA 2025</div>
+        <div class="ml-auto text-red-400 font-bold">ADMIN PANEL</div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section relative flex items-center justify-center px-4 text-center">
+    <div class="text-center w-full flex flex-col items-center">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold cosmic-glow mb-4">
+        Admin Panel
+      </h1>
+      <div class="h-1 w-24 bg-cyan-400 mx-auto mb-6"></div>
+      <p class="text-lg sm:text-xl md:text-2xl text-cyan-300">
+        Event Status Management
+      </p>
+    </div>
+  </section>
+
+  <!-- Admin Panel Section -->
+  <section class="py-12 md:py-20 px-4 bg-gray-900">
+    <div class="max-w-2xl mx-auto">
+      <!-- API Key Setup (if not stored) -->
+      <div id="apiKeySetup" class="card-orbit bg-gray-800 p-8 rounded-lg mb-8" style="display: none;">
+        <h2 class="text-2xl font-bold text-cyan-400 mb-6">API Key Setup</h2>
+        <div class="space-y-4">
+          <div class="flex items-start gap-4">
+            <i class="fas fa-key text-cyan-400 mt-1"></i>
+            <div class="flex-1">
+              <label for="initialApiKey" class="block font-bold mb-2">Enter API Key</label>
+              <input type="password" id="initialApiKey" 
+                     placeholder="Enter your API key..." 
+                     class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-cyan-400 focus:outline-none">
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <input type="checkbox" id="rememberKey" class="rounded border-gray-600 bg-gray-700 text-cyan-400 focus:ring-cyan-400">
+            <label for="rememberKey" class="text-sm">Remember API key for this browser</label>
+          </div>
+          <button onclick="saveApiKey()" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200">
+            <i class="fas fa-save mr-2"></i>Save API Key
+          </button>
+        </div>
+      </div>
+
+      <!-- Status Update Form -->
+      <div id="statusForm" class="card-orbit bg-gray-800 p-8 rounded-lg mb-8" style="display: none;">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-2xl font-bold text-cyan-400">Update Event Status</h2>
+          <div class="flex items-center gap-2">
+            <span class="text-green-400 text-sm">
+              <i class="fas fa-check-circle mr-1"></i>API Key Saved
+            </span>
+            <button onclick="changeApiKey()" class="text-cyan-400 hover:text-cyan-300 text-sm">
+              <i class="fas fa-edit mr-1"></i>Change
+            </button>
+          </div>
+        </div>
+        
+        <form id="updateForm" class="space-y-6">
+          <!-- Event Selection -->
+          <div class="flex items-start gap-4">
+            <i class="fas fa-calendar text-cyan-400 mt-1"></i>
+            <div class="flex-1">
+              <label for="eventName" class="block font-bold mb-2">Event Name</label>
+              <select id="eventName" name="eventName" required class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-cyan-400 focus:outline-none">
+                <option value="">Select an event...</option>
+                <option value="Natya-Sutra">Natya Sutra</option>
+                <option value="Yukti">Yukti (Quiz)</option>
+                <option value="Naada-Nirvana">Naada Nirvana</option>
+                <option value="Nataka">Nataka</option>
+                <option value="Nazakat">Nazakat</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Status Selection -->
+          <div class="flex items-start gap-4">
+            <i class="fas fa-toggle-on text-cyan-400 mt-1"></i>
+            <div class="flex-1">
+              <label for="status" class="block font-bold mb-2">New Status</label>
+              <select id="status" name="status" required class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white focus:border-cyan-400 focus:outline-none">
+                <option value="">Select status...</option>
+                <option value="Started">Started</option>
+                <option value="Ended">Ended</option>
+                <option value="Round1">Round 1</option>
+                <option value="Round2">Round 2</option>
+                <option value="Round3">Round 3</option>
+                <option value="Round4">Round 4</option>
+                <option value="Ongoing">Ongoing</option>
+                <option value="Delayed">Delayed</option>
+                <option value="Soon">Soon</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="flex items-center gap-4 pt-4">
+            <i class="fas fa-paper-plane text-cyan-400"></i>
+            <button type="submit" class="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200">
+              <i class="fas fa-sync-alt mr-2"></i>Update Status
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Current Status Display -->
+      <div class="card-orbit bg-gray-800 p-8 rounded-lg mb-8">
+        <h2 class="text-2xl font-bold text-cyan-400 mb-6">Current Event Statuses</h2>
+        <div id="currentStatuses" class="space-y-4">
+          <!-- Statuses will be loaded here -->
+          <div class="text-center text-gray-400">
+            <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+            <p>Loading current statuses...</p>
+          </div>
+        </div>
+        <div class="mt-6 text-center">
+          <button onclick="refreshStatuses()" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200">
+            <i class="fas fa-refresh mr-2"></i>Refresh Statuses
+          </button>
+        </div>
+      </div>
+
+      <!-- Response Log -->
+      <div class="card-orbit bg-gray-800 p-8 rounded-lg">
+        <h2 class="text-2xl font-bold text-cyan-400 mb-6">Response Log</h2>
+        <div id="responseLog" class="bg-gray-900 p-4 rounded-lg max-h-64 overflow-y-auto">
+          <div class="text-gray-400 text-sm">No responses yet...</div>
+        </div>
+        <div class="mt-4 text-center">
+          <button onclick="clearLog()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200">
+            <i class="fas fa-trash mr-2"></i>Clear Log
+          </button>
+        </div>
+      </div>
+
+      <!-- Back to Main Site -->
+      <div class="text-center mt-12">
+        <a href="../index.html#events" class="explore-btn">
+          <i class="fas fa-arrow-left mr-2"></i>Back to Events
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="text-center py-6 text-cyan-300 opacity-80">
+    &copy; 2025 ADHARVA Fest | Admin Panel
+  </footer>
+
+  <script src="admin.js"></script>
+</body>
+</html> 
