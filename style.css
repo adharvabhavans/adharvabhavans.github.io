@@ -399,6 +399,13 @@ section {
   transform: scaleX(1);
   transform-origin: left;
 }
+@media (max-width: 640px) {
+  .explore-btn {
+    margin-bottom: 2rem;
+    width: 90%;
+    max-width: 350px;
+  }
+}
 @media (max-width: 600px) {
   .explore-btn {
     font-size: 1rem;
