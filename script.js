@@ -285,3 +285,26 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
 });
+
+// Glowing Countdown Timer for Hero Section
+(function countdownTimer() {
+  const timerEl = document.getElementById('countdown-timer');
+  if (!timerEl) return;
+  const festDate = new Date('2025-07-12T00:00:00+05:30');
+  function updateTimer() {
+    const now = new Date();
+    let diff = festDate - now;
+    if (diff < 0) diff = 0;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const mins = Math.floor((diff / (1000 * 60)) % 60);
+    const secs = Math.floor((diff / 1000) % 60);
+    timerEl.innerHTML =
+      `<span style="color:#67e8f9;text-shadow:0 0 10px #22d3ee;">${days}</span>d : ` +
+      `<span style="color:#22d3ee;">${hours.toString().padStart(2, '0')}</span>h : ` +
+      `<span style="color:#0ea5e9;">${mins.toString().padStart(2, '0')}</span>m : ` +
+      `<span style="color:#fff;">${secs.toString().padStart(2, '0')}</span>s`;
+  }
+  updateTimer();
+  setInterval(updateTimer, 1000);
+})();
