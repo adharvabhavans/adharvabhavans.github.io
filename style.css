@@ -336,6 +336,14 @@ body {
     bottom: 1.5rem;
     right: 1.5rem;
   }
+  /* Hide grid on mobile, show Swiper */
+  .events-grid { display: none !important; }
+  .events-swiper { display: block !important; }
+}
+/* Show grid on desktop, hide Swiper */
+@media (min-width: 769px) {
+  .events-grid { display: grid !important; }
+  .events-swiper { display: none !important; }
 }
 /* Touch Device Optimizations */
 @media (hover: none) {

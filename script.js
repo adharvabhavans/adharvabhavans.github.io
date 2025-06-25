@@ -444,6 +444,25 @@ if (typeof Swiper !== 'undefined') {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
       console.log('Initializing Swiper...');
+      if (window.innerWidth <= 768) {
+        new Swiper('.swiper', {
+          slidesPerView: 1,
+          spaceBetween: 32,
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+          loop: false,
+          centeredSlides: false,
+          grabCursor: true,
+          speed: 600,
+        });
+      }
+      console.log('Swiper initialized!');
+    });
+  } else {
+    console.log('Initializing Swiper...');
+    if (window.innerWidth <= 768) {
       new Swiper('.swiper', {
         slidesPerView: 1,
         spaceBetween: 32,
@@ -451,20 +470,18 @@ if (typeof Swiper !== 'undefined') {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev',
         },
-        breakpoints: {
-          0: { slidesPerView: 1 },
-          768: { slidesPerView: 1 },
-          1024: { slidesPerView: 1 }
-        },
         loop: false,
         centeredSlides: false,
         grabCursor: true,
         speed: 600,
       });
-      console.log('Swiper initialized!');
-    });
-  } else {
-    console.log('Initializing Swiper...');
+    }
+    console.log('Swiper initialized!');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.innerWidth <= 768) {
     new Swiper('.swiper', {
       slidesPerView: 1,
       spaceBetween: 32,
@@ -472,31 +489,10 @@ if (typeof Swiper !== 'undefined') {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
       },
-      breakpoints: {
-        0: { slidesPerView: 1 },
-        768: { slidesPerView: 1 },
-        1024: { slidesPerView: 1 }
-      },
       loop: false,
       centeredSlides: false,
       grabCursor: true,
       speed: 600,
     });
-    console.log('Swiper initialized!');
   }
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  new Swiper('.swiper', {
-    slidesPerView: 1,
-    spaceBetween: 32,
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-    loop: false,
-    centeredSlides: false,
-    grabCursor: true,
-    speed: 600,
-  });
 });
