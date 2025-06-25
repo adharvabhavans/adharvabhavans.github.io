@@ -805,3 +805,14 @@ nav.scrolled {
 .swiper-button-next {
   right: 10px;
 }
+.event-points {
+  padding-left: 1.2em;
+  margin: 0.5em 0 0 0;
+  color: #e0f5ff;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  list-style-type: disc;
+}
+.event-points li {
+  margin-bottom: 0.4em;
+}
