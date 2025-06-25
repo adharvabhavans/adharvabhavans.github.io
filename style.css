@@ -110,7 +110,7 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 100%);
   background: rgba(17, 17, 17, 0.95);
   border: 1px solid #00ced1;
   border-radius: 1rem;
@@ -118,7 +118,10 @@ body {
   max-width: 500px;
   width: 90%;
   box-shadow: 0 0 30px rgba(0, 206, 209, 0.3);
-  transition: box-shadow 0.3s, background 0.3s;
+  transition: box-shadow 0.3s, background 0.3s, transform 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+.modal.active .modal-content {
+  transform: translate(-50%, -50%);
 }
 @media (max-width: 600px) {
   .modal-content {
@@ -717,7 +720,7 @@ nav.scrolled {
 /* Pop-in/Pop-out Animation for all major elements */
 .pop-animate {
   opacity: 0;
-  transform: translateY(40px) scale(0.98);
+  transform: translateY(60px) scale(0.98);
   transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1);
   will-change: opacity, transform;
 }
@@ -727,8 +730,70 @@ nav.scrolled {
 }
 .pop-animate.pop-out {
   opacity: 0;
-  transform: translateY(-40px) scale(0.98);
+  transform: translateY(-60px) scale(0.98);
   transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1), transform 0.5s cubic-bezier(0.4,0,0.2,1);
   will-change: opacity, transform;
   pointer-events: none;
+}
+/* Swiper navigation arrow fix */
+.swiper-button-prev, .swiper-button-next {
+  z-index: 10 !important;
+  pointer-events: auto !important;
+  color: #22d3ee;
+  background: rgba(0,0,0,0.1);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px #22d3ee22;
+  transition: background 0.2s, color 0.2s;
+}
+.swiper-button-prev:hover, .swiper-button-next:hover {
+  background: #22d3ee;
+  color: #000;
+}
+/* Swiper required layout styles fix */
+.swiper {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  padding: 0 60px; /* Space for arrows */
+}
+.swiper-wrapper {
+  display: flex;
+  transition-property: transform;
+  box-sizing: content-box;
+}
+.swiper-slide {
+  flex-shrink: 0;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+/* Limit card width and center it inside the slide */
+.swiper-slide > a {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  display: block;
+}
+/* Make sure Swiper arrows are outside the card */
+.swiper-button-prev,
+.swiper-button-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+.swiper-button-prev {
+  left: 10px;
+}
+.swiper-button-next {
+  right: 10px;
 }
