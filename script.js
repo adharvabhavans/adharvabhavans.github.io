@@ -308,3 +308,134 @@ document.addEventListener('DOMContentLoaded', function() {
   updateTimer();
   setInterval(updateTimer, 1000);
 })();
+
+// Make event cards open modal with event details on click
+function setupEventCardModals() {
+  const eventSection = document.getElementById('events');
+  if (!eventSection) return;
+  eventSection.querySelectorAll('.card-orbit[data-event-title][data-event-desc]').forEach(card => {
+    card.addEventListener('click', function(e) {
+      // Prevent nested links or buttons from triggering the modal
+      if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
+      const title = card.getAttribute('data-event-title');
+      const desc = card.getAttribute('data-event-desc');
+      showEventModal(title, desc);
+    });
+  });
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', setupEventCardModals);
+} else {
+  setupEventCardModals();
+}
+
+// Ripple/Glow Burst Effect for Button Clicks
+function addRippleEffect(e) {
+  const btn = e.currentTarget;
+  const ripple = document.createElement('span');
+  ripple.className = 'ripple-effect';
+  const rect = btn.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height);
+  ripple.style.width = ripple.style.height = size + 'px';
+  ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+  ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+  btn.appendChild(ripple);
+  setTimeout(() => ripple.remove(), 600);
+}
+document.querySelectorAll('.explore-btn, button').forEach(btn => {
+  btn.style.position = 'relative';
+  btn.addEventListener('click', addRippleEffect);
+});
+
+// Section Heading Animation with scroll direction awareness
+function animateSectionHeadings() {
+  const headings = document.querySelectorAll('.section-heading-animate');
+  let lastScrollY = window.scrollY;
+  let scrollDirection = 'down';
+  window.addEventListener('scroll', () => {
+    const currentScrollY = window.scrollY;
+    scrollDirection = currentScrollY > lastScrollY ? 'down' : 'up';
+    lastScrollY = currentScrollY;
+  });
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && scrollDirection === 'down') {
+        entry.target.classList.add('visible');
+      } else if (!entry.isIntersecting && scrollDirection === 'up') {
+        entry.target.classList.remove('visible');
+      }
+    });
+  }, { threshold: 0.2 });
+  headings.forEach(h => observer.observe(h));
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', animateSectionHeadings);
+} else {
+  animateSectionHeadings();
+}
+
+// Fix for card shine animation getting stuck: force restart on each hover
+function setupCardShineAnimation() {
+  document.querySelectorAll('.card-orbit').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      card.classList.remove('shine-animate');
+      void card.offsetWidth;
+      card.classList.add('shine-animate');
+    });
+    card.addEventListener('mouseleave', () => {
+      card.classList.remove('shine-animate');
+    });
+    // Remove shine-animate after animation ends
+    card.addEventListener('animationend', (e) => {
+      if (e.animationName === 'card-shine') {
+        card.classList.remove('shine-animate');
+      }
+    }, true);
+  });
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', setupCardShineAnimation);
+} else {
+  setupCardShineAnimation();
+}
+
+// Pop-in/Pop-out Animation for all .pop-animate elements
+function animatePopElements() {
+  const elements = document.querySelectorAll('.pop-animate');
+  let lastScrollY = window.scrollY;
+  let scrollDirection = 'down';
+  window.addEventListener('scroll', () => {
+    const currentScrollY = window.scrollY;
+    scrollDirection = currentScrollY > lastScrollY ? 'down' : 'up';
+    lastScrollY = currentScrollY;
+  });
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        if (scrollDirection === 'down') {
+          entry.target.classList.add('visible');
+          entry.target.classList.remove('pop-out');
+        } else if (scrollDirection === 'up') {
+          // If entering from the top, just show without animation
+          entry.target.classList.add('visible');
+          entry.target.classList.remove('pop-out');
+        }
+      } else {
+        if (scrollDirection === 'up') {
+          entry.target.classList.remove('visible');
+          entry.target.classList.add('pop-out');
+        } else if (scrollDirection === 'down') {
+          // Leaving out the bottom, just hide without pop-out
+          entry.target.classList.remove('visible');
+          entry.target.classList.remove('pop-out');
+        }
+      }
+    });
+  }, { threshold: 0.2 });
+  elements.forEach(el => observer.observe(el));
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', animatePopElements);
+} else {
+  animatePopElements();
+}

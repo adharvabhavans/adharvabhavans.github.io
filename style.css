@@ -17,7 +17,7 @@ body {
   100% { text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 15px #ffffff; }
 }
 .card-orbit {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: border-color 0.35s cubic-bezier(0.4,0,0.2,1), box-shadow 0.45s cubic-bezier(0.4,0,0.2,1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
   background: rgba(17, 23, 39, 0.95);
@@ -57,6 +57,38 @@ body {
   }
   100% {
     filter: drop-shadow(0 0 16px #67e8f9) drop-shadow(0 0 32px #0ea5e9);
+  }
+}
+.card-orbit::after {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -60%;
+  width: 120%;
+  height: 120%;
+  background: linear-gradient(120deg, transparent 70%, rgba(255,255,255,0.13) 80%, transparent 100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.card-orbit.shine-animate::after {
+  opacity: 1;
+  animation: card-shine 0.8s linear;
+}
+@keyframes card-shine {
+  0% {
+    transform: translate(-100%, -100%) rotate(10deg);
+    opacity: 0.1;
+  }
+  60% {
+    opacity: 0.25;
+  }
+  80% {
+    opacity: 0.18;
+  }
+  100% {
+    transform: translate(100%, 100%) rotate(10deg);
+    opacity: 0;
   }
 }
 .modal {
@@ -482,15 +514,30 @@ nav {
   transform-origin: right;
   transition: transform 0.3s ease;
 }
-.desktop-menu a:hover {
-  color: #00ced1;
+.desktop-menu a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #22d3ee 0%, #0ea5e9 100%);
+  border-radius: 2px;
+  opacity: 0;
+  transform: scaleX(0.5);
+  box-shadow: 0 0 8px #22d3ee88;
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 1;
+}
+.desktop-menu a.active::after {
+  opacity: 1;
+  transform: scaleX(1);
 }
 .desktop-menu a.active {
   color: #00ced1;
 }
-.desktop-menu a.active::before {
-  transform: scaleX(1);
-  transform-origin: left;
+.desktop-menu a:hover {
+  color: #00ced1;
 }
 .desktop-menu a:hover::before {
   transform: scaleX(1);
@@ -633,4 +680,55 @@ hr {
   letter-spacing: 0.01em;
   color: #e0f5ff;
   text-shadow: 0 1px 2px #0008;
+}
+/* Ripple/Glow Burst Effect for Button Clicks */
+.ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple-animate 0.6s linear;
+  background: rgba(34, 211, 238, 0.35);
+  pointer-events: none;
+  z-index: 2;
+}
+@keyframes ripple-animate {
+  to {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* Section Heading Animation */
+.section-heading-animate {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+.section-heading-animate.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+nav.scrolled {
+  box-shadow: 0 4px 24px 0 #22d3ee22, 0 2px 8px 0 #000a;
+  border-bottom: 1px solid #22d3ee44;
+  background: rgba(0,0,0,0.98);
+  transition: box-shadow 0.3s, background 0.3s;
+}
+/* Pop-in/Pop-out Animation for all major elements */
+.pop-animate {
+  opacity: 0;
+  transform: translateY(40px) scale(0.98);
+  transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1);
+  will-change: opacity, transform;
+}
+.pop-animate.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.pop-animate.pop-out {
+  opacity: 0;
+  transform: translateY(-40px) scale(0.98);
+  transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1), transform 0.5s cubic-bezier(0.4,0,0.2,1);
+  will-change: opacity, transform;
+  pointer-events: none;
 }
