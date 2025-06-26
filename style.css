@@ -361,6 +361,38 @@ body {
   .events-swiper {
     display: none !important;
   }
+  .inverse-pyramid-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .pyramid-row {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+  }
+  .pyramid-row-1 {
+    max-width: 1100px;
+    justify-content: center;
+  }
+  .pyramid-row-1 > a {
+    flex: 1 1 0;
+    max-width: 340px;
+    min-width: 220px;
+  }
+  .pyramid-row-2 {
+    max-width: 700px;
+    justify-content: center;
+  }
+  .pyramid-row-2 > a {
+    flex: 1 1 0;
+    max-width: 340px;
+    min-width: 220px;
+  }
 }
 /* Touch Device Optimizations */
 @media (hover: none) {
@@ -832,4 +864,49 @@ nav.scrolled {
 }
 .event-points li {
   margin-bottom: 0.4em;
+}
+.countdown-finish-animate {
+  animation: countdown-finish-pop 1.2s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+@keyframes countdown-finish-pop {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  60% {
+    opacity: 0.7;
+    transform: scale(1.15) rotateX(10deg);
+    filter: brightness(1.5) blur(1px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.3) rotateX(30deg);
+    filter: brightness(2) blur(4px);
+  }
+}
+@media (min-width: 1024px) {
+  .events-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    justify-items: center;
+  }
+  .events-bottom-row {
+    grid-column: 1 / span 3;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-left: 2vw;
+    grid-row: 2;
+  }
+  .events-bottom-row > a {
+    flex: 0 1 340px;
+    max-width: 340px;
+    min-width: 220px;
+  }
+  .events-grid > a {
+    /* Top row cards only */
+    grid-row: 1;
+  }
 }
