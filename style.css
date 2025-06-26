@@ -342,8 +342,25 @@ body {
 }
 /* Show grid on desktop, hide Swiper */
 @media (min-width: 769px) {
-  .events-grid { display: grid !important; }
-  .events-swiper { display: none !important; }
+  .events-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    align-items: stretch;
+  }
+  .events-grid > a {
+    height: 100%;
+    display: flex;
+  }
+  .card-orbit {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .events-swiper {
+    display: none !important;
+  }
 }
 /* Touch Device Optimizations */
 @media (hover: none) {
