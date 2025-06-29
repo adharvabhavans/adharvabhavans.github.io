@@ -289,7 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
 (function countdownTimer() {
   const timerEl = document.getElementById('countdown-timer');
   if (!timerEl) return;
-  const festDate = new Date('2025-07-12T00:00:00+05:30');
+  const festDate = new Date('2025-07-26T00:00:00+05:30');
   function updateTimer() {
     const now = new Date();
     let diff = festDate - now;
