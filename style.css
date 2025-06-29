@@ -7,6 +7,9 @@ body {
   padding-top: 4rem; /* Add padding to body to account for fixed nav */
   background: linear-gradient(135deg, #000000 0%, #0a0a2a 100%);
 }
+body.admin-bg {
+  background: linear-gradient(135deg, #000000 0%, #0a0a2a 100%) !important;
+}
 .cosmic-glow {
   text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff, 0 0 15px #ffffff;
   animation: pulse 2s infinite;
@@ -653,8 +656,8 @@ body::before {
     pointer-events: none;
     z-index: -1;
     background: radial-gradient(
-        1000px circle at var(--mouse-x) var(--mouse-y),
-        rgba(103, 232, 249, 0.15),
+        1000px circle at var(--mouse-x, 50vw) var(--mouse-y, 50vh),
+        rgba(103, 232, 249, 0.18),
         transparent 40%
     );
 }
@@ -663,36 +666,39 @@ body::before {
 }
 
 /* Grid effect for desktop only */
-@media (hover: hover) {  /* This targets devices that support hover (desktop) */
-    .bg-gray-900::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image: 
-            linear-gradient(
-                to right,
-                rgba(103, 232, 249, 0.2) 1px,
-                transparent 1px
-            ),
-            linear-gradient(
-                to bottom,
-                rgba(103, 232, 249, 0.2) 1px,
-                transparent 1px
-            );
-        background-size: 50px 50px;
-        mask-image: radial-gradient(
-            700px circle at calc(var(--mouse-x) - var(--section-x)) calc(var(--mouse-y) - var(--section-y)),
-            black,
-            transparent 60%
-        );
-        -webkit-mask-image: radial-gradient(
-            700px circle at calc(var(--mouse-x) - var(--section-x)) calc(var(--mouse-y) - var(--section-y)),
-            black,
-            transparent 60%
-        );
-        pointer-events: none;
-        z-index: 0;
-    }
+@media (hover: hover) {
+  body.admin-bg::after {
+    display: none !important;
+  }
+  .bg-gray-900::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(
+        to right,
+        rgba(103, 232, 249, 0.2) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        rgba(103, 232, 249, 0.2) 1px,
+        transparent 1px
+      );
+    background-size: 50px 50px;
+    mask-image: radial-gradient(
+      700px circle at calc(var(--mouse-x, 50vw) - var(--section-x, 0px)) calc(var(--mouse-y, 50vh) - var(--section-y, 0px)),
+      black,
+      transparent 60%
+    );
+    -webkit-mask-image: radial-gradient(
+      700px circle at calc(var(--mouse-x, 50vw) - var(--section-x, 0px)) calc(var(--mouse-y, 50vh) - var(--section-y, 0px)),
+      black,
+      transparent 60%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
 }
 
 /* Remove grid effect on mobile */
@@ -908,5 +914,30 @@ nav.scrolled {
   .events-grid > a {
     /* Top row cards only */
     grid-row: 1;
+  }
+}
+body.admin-bg::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: -1;
+    background: radial-gradient(
+        1000px circle at var(--mouse-x, 50vw) var(--mouse-y, 50vh),
+        rgba(103, 232, 249, 0.18),
+        transparent 40%
+    );
+}
+@media (hover: hover) {
+  body.admin-bg::after {
+    display: none !important;
+  }
+}
+@media (hover: none) {
+  body.admin-bg::after {
+    display: none;
   }
 }

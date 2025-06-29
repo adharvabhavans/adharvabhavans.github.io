@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" defer>
 </head>
-<body>
+<body class="admin-bg">
   <!-- Navigation -->
   <nav class="bg-black/80 backdrop-blur-sm" aria-label="Main Navigation">
     <div class="nav-container mx-auto">
@@ -169,5 +169,21 @@
   </footer>
 
   <script src="admin.js"></script>
+  <script>
+  // Cursor-following glow effect for admin page
+  (function() {
+    function setGlowVars(e) {
+      document.body.style.setProperty('--mouse-x', e.clientX + 'px');
+      document.body.style.setProperty('--mouse-y', e.clientY + 'px');
+      // Set section position for grid mask
+      const rect = document.body.getBoundingClientRect();
+      document.body.style.setProperty('--section-x', rect.left + 'px');
+      document.body.style.setProperty('--section-y', rect.top + 'px');
+    }
+    window.addEventListener('mousemove', setGlowVars);
+    // Set initial values
+    setGlowVars({clientX: window.innerWidth/2, clientY: window.innerHeight/2});
+  })();
+  </script>
 </body>
 </html> 
