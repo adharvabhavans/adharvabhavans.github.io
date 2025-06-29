@@ -168,6 +168,12 @@
     &copy; 2025 ADHARVA Fest | Admin Panel
   </footer>
 
+  <div class="text-center mb-6">
+    <button id="no-css-btn" class="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-6 rounded-lg transition-colors duration-200 mt-2">
+      Disable CSS
+    </button>
+  </div>
+
   <script src="admin.js"></script>
   <script>
   // Cursor-following glow effect for admin page
@@ -184,6 +190,28 @@
     // Set initial values
     setGlowVars({clientX: window.innerWidth/2, clientY: window.innerHeight/2});
   })();
+
+  // No CSS button logic
+  const noCssBtn = document.getElementById('no-css-btn');
+  let disabledLinks = [];
+  noCssBtn.addEventListener('click', function() {
+    if (noCssBtn.textContent.trim() === 'Disable CSS') {
+      // Disable all stylesheets
+      disabledLinks = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
+      disabledLinks.forEach(link => link.disabled = true);
+      // Remove inline <style> tags
+      document.querySelectorAll('style').forEach(style => style.remove());
+      noCssBtn.textContent = 'Enable CSS';
+      noCssBtn.classList.remove('bg-red-700', 'hover:bg-red-800');
+      noCssBtn.classList.add('bg-green-700', 'hover:bg-green-800');
+    } else {
+      // Re-enable all previously disabled stylesheets
+      disabledLinks.forEach(link => link.disabled = false);
+      noCssBtn.textContent = 'Disable CSS';
+      noCssBtn.classList.remove('bg-green-700', 'hover:bg-green-800');
+      noCssBtn.classList.add('bg-red-700', 'hover:bg-red-800');
+    }
+  });
   </script>
 </body>
 </html> 
