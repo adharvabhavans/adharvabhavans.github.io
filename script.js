@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Map event display names to API keys (adjust as per your API response)
   const eventNameMap = {
     'Natya Sutra': 'Natya-Sutra',
-    'Yukti (Quiz)': 'Yukti',
+    'Yukti': 'Yukti',
     'Naada Nirvana': 'Naada-Nirvana',
     'Nataka': 'Nataka',
     'Nazakat': 'Nazakat',
