@@ -941,3 +941,27 @@ body.admin-bg::before {
     display: none;
   }
 }
+
+.quick-access-card {
+  transition: border-color 0.35s cubic-bezier(0.4,0,0.2,1), box-shadow 0.45s cubic-bezier(0.4,0,0.2,1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  background: rgba(17, 23, 39, 0.95);
+  border-radius: 1.5rem;
+  border: 2px solid rgba(34, 211, 238, 0.12);
+  box-shadow: 0 2px 12px 0 rgba(34, 211, 238, 0.05);
+  z-index: 1;
+}
+.quick-access-card:hover, .quick-access-card:focus {
+  transform: translateY(-10px) scale(1.04);
+  box-shadow: 0 8px 32px 0 #22d3ee44, 0 0 40px 8px #0ea5e944, 0 0 0 4px #22d3ee88;
+  border-color: #22d3ee;
+  background: #1e293b;
+}
+.quick-access-card img {
+  transition: box-shadow 0.3s, filter 0.3s;
+}
+.quick-access-card:hover img, .quick-access-card:focus img {
+  box-shadow: 0 0 24px 4px #22d3ee55;
+  filter: brightness(1.08) saturate(1.1);
+}
