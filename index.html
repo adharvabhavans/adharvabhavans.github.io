@@ -34,6 +34,34 @@
       font-family: 'Playfair Display', 'Merriweather', Georgia, serif;
       font-weight: 700;
     }
+    @media (max-width: 640px) {
+      .schedule-card {
+        cursor: default !important;
+      }
+      .schedule-card[onclick] {
+        pointer-events: none;
+      }
+      .view-details-btn {
+        display: block;
+      }
+      .core-team-card {
+        cursor: default !important;
+      }
+      .core-team-card[onclick] {
+        pointer-events: none;
+      }
+      .view-details-btn {
+        display: block;
+      }
+    }
+    @media (min-width: 640px) {
+      .core-team-card .view-details-btn {
+        display: none;
+      }
+      .schedule-card .view-details-btn {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -105,91 +133,82 @@
         <div class="swiper-wrapper">
           <!-- Natya Sutra -->
           <div class="swiper-slide">
-            <a href="events/natya-sutra.html" class="quick-access-card" style="text-decoration:none;color:inherit;">
-              <div class="card-orbit bg-gray-800 p-8 rounded-lg relative hover:ring-2 hover:ring-cyan-400 transition-shadow duration-200 pop-animate" style="cursor:pointer;" data-aos="zoom-in">
-                <div class="event-status-indicator absolute top-4 right-4"></div>
-                <h3 class="event-heading-serif text-2xl md:text-3xl font-bold text-cyan-100">Natya Sutra</h3>
-                <div class="text-sm opacity-90 space-y-2">
-                  <ul class="event-points">
-                    <li>Every step tells a story, every rhythm breathes life into tradition.</li>
-                    <li>A sacred stage where cultures unite and expressions come alive.</li>
-                    <li>The spirit of dance speaks louder than words.</li>
-                    <li>Let the beats guide us, the grace inspire us, and the stories unfold.</li>
-                  </ul>
-                </div>
+            <div class="quick-access-card card-orbit bg-gray-800 p-8 rounded-lg relative hover:ring-2 hover:ring-cyan-400 transition-shadow duration-200 pop-animate" style="cursor:pointer;" data-aos="zoom-in">
+              <div class="event-status-indicator absolute top-4 right-4"></div>
+              <h3 class="event-heading-serif text-2xl md:text-3xl font-bold text-cyan-100">Natya Sutra</h3>
+              <div class="text-sm opacity-90 space-y-2">
+                <ul class="event-points">
+                  <li>Every step tells a story, every rhythm breathes life into tradition.</li>
+                  <li>A sacred stage where cultures unite and expressions come alive.</li>
+                  <li>The spirit of dance speaks louder than words.</li>
+                  <li>Let the beats guide us, the grace inspire us, and the stories unfold.</li>
+                </ul>
               </div>
-            </a>
+              <a href="events/natya-sutra.html" class="event-view-btn mt-4 inline-block px-4 py-2 bg-cyan-600 text-white rounded shadow hover:bg-cyan-700 transition">View Details</a>
+            </div>
           </div>
-
           <!-- Yukti -->
           <div class="swiper-slide">
-            <a href="events/yukti.html" class="quick-access-card" style="text-decoration:none;color:inherit;">
-              <div class="card-orbit bg-gray-800 p-8 rounded-lg relative hover:ring-2 hover:ring-cyan-400 transition-shadow duration-200 pop-animate" style="cursor:pointer;" data-aos="zoom-in" data-aos-delay="100">
-                <div class="event-status-indicator absolute top-4 right-4"></div>
-                <h3 class="event-heading-serif text-2xl md:text-3xl font-bold text-cyan-100">Yukti</h3>
-                <div class="text-sm opacity-90 space-y-2">
-                  <ul class="event-points">
-                    <li>The pursuit of knowledge, a journey where curiosity leads and wisdom follows.</li>
-                    <li>Every question is a doorway, every answer a key.</li>
-                    <li>Not just a test of facts, but a celebration of intellect and insight.</li>
-                    <li>Where sharp minds meet and every spark of understanding lights the path to discovery.</li>
-                  </ul>
-                </div>
+            <div class="quick-access-card card-orbit bg-gray-800 p-8 rounded-lg relative hover:ring-2 hover:ring-cyan-400 transition-shadow duration-200 pop-animate" style="cursor:pointer;" data-aos="zoom-in" data-aos-delay="100">
+              <div class="event-status-indicator absolute top-4 right-4"></div>
+              <h3 class="event-heading-serif text-2xl md:text-3xl font-bold text-cyan-100">Yukti</h3>
+              <div class="text-sm opacity-90 space-y-2">
+                <ul class="event-points">
+                  <li>The pursuit of knowledge, a journey where curiosity leads and wisdom follows.</li>
+                  <li>Every question is a doorway, every answer a key.</li>
+                  <li>Not just a test of facts, but a celebration of intellect and insight.</li>
+                  <li>Where sharp minds meet and every spark of understanding lights the path to discovery.</li>
+                </ul>
               </div>
-            </a>
+              <a href="events/yukti.html" class="event-view-btn mt-4 inline-block px-4 py-2 bg-cyan-600 text-white rounded shadow hover:bg-cyan-700 transition">View Details</a>
+            </div>
           </div>
-
           <!-- Naada Nirvana -->
           <div class="swiper-slide">
-            <a href="events/naada-nirvana.html" class="quick-access-card" style="text-decoration:none;color:inherit;">
-              <div class="card-orbit bg-gray-800 p-8 rounded-lg relative hover:ring-2 hover:ring-cyan-400 transition-shadow duration-200 pop-animate" style="cursor:pointer;" data-aos="zoom-in" data-aos-delay="200">
-                <div class="event-status-indicator absolute top-4 right-4"></div>
-                <h3 class="event-heading-serif text-2xl md:text-3xl font-bold text-cyan-100">Naada Nirvana</h3>
-                <div class="text-sm opacity-90 space-y-2">
-                  <ul class="event-points">
-                    <li>The soul sings in symphonies unseen, the spirit listens in echoes serene.</li>
-                    <li>Every note becomes a heartbeat, every rhythm a pulse of emotion.</li>
-                    <li>Music is more than art, it is the voice of the heart.</li>
-                    <li>The language of the unspoken and the breath between moments.</li>
-                  </ul>
-                </div>
+            <div class="quick-access-card card-orbit bg-gray-800 p-8 rounded-lg relative hover:ring-2 hover:ring-cyan-400 transition-shadow duration-200 pop-animate" style="cursor:pointer;" data-aos="zoom-in" data-aos-delay="200">
+              <div class="event-status-indicator absolute top-4 right-4"></div>
+              <h3 class="event-heading-serif text-2xl md:text-3xl font-bold text-cyan-100">Naada Nirvana</h3>
+              <div class="text-sm opacity-90 space-y-2">
+                <ul class="event-points">
+                  <li>The soul sings in symphonies unseen, the spirit listens in echoes serene.</li>
+                  <li>Every note becomes a heartbeat, every rhythm a pulse of emotion.</li>
+                  <li>Music is more than art, it is the voice of the heart.</li>
+                  <li>The language of the unspoken and the breath between moments.</li>
+                </ul>
               </div>
-            </a>
+              <a href="events/naada-nirvana.html" class="event-view-btn mt-4 inline-block px-4 py-2 bg-cyan-600 text-white rounded shadow hover:bg-cyan-700 transition">View Details</a>
+            </div>
           </div>
-
           <!-- Nataka -->
           <div class="swiper-slide">
-            <a href="events/nataka.html" class="quick-access-card" style="text-decoration:none;color:inherit;">
-              <div class="card-orbit bg-gray-800 p-8 rounded-lg relative hover:ring-2 hover:ring-cyan-400 transition-shadow duration-200 pop-animate" style="cursor:pointer;" data-aos="zoom-in" data-aos-delay="300">
-                <div class="event-status-indicator absolute top-4 right-4"></div>
-                <h3 class="event-heading-serif text-2xl md:text-3xl font-bold text-cyan-100">Nataka</h3>
-                <div class="text-sm opacity-90 space-y-2">
-                  <ul class="event-points">
-                    <li>Every act is a storm that stirs the soul, every silence a scream that echoes louder than words.</li>
-                    <li>Emotions take the spotlight, characters come alive, and stories unfold in raw brilliance.</li>
-                    <li>The heartbeat of human experience, performed moment by moment.</li>
-                  </ul>
-                </div>
+            <div class="quick-access-card card-orbit bg-gray-800 p-8 rounded-lg relative hover:ring-2 hover:ring-cyan-400 transition-shadow duration-200 pop-animate" style="cursor:pointer;" data-aos="zoom-in" data-aos-delay="300">
+              <div class="event-status-indicator absolute top-4 right-4"></div>
+              <h3 class="event-heading-serif text-2xl md:text-3xl font-bold text-cyan-100">Nataka</h3>
+              <div class="text-sm opacity-90 space-y-2">
+                <ul class="event-points">
+                  <li>Every act is a storm that stirs the soul, every silence a scream that echoes louder than words.</li>
+                  <li>Emotions take the spotlight, characters come alive, and stories unfold in raw brilliance.</li>
+                  <li>The heartbeat of human experience, performed moment by moment.</li>
+                </ul>
               </div>
-            </a>
+              <a href="events/nataka.html" class="event-view-btn mt-4 inline-block px-4 py-2 bg-cyan-600 text-white rounded shadow hover:bg-cyan-700 transition">View Details</a>
+            </div>
           </div>
-
           <!-- Nazakat -->
           <div class="swiper-slide">
-            <a href="events/nazakat.html" class="quick-access-card" style="text-decoration:none;color:inherit;">
-              <div class="card-orbit bg-gray-800 p-8 rounded-lg relative hover:ring-2 hover:ring-cyan-400 transition-shadow duration-200 pop-animate" style="cursor:pointer;" data-aos="zoom-in" data-aos-delay="400">
-                <div class="event-status-indicator absolute top-4 right-4"></div>
-                <h3 class="event-heading-serif text-2xl md:text-3xl font-bold text-cyan-100">Nazakat</h3>
-                <div class="text-sm opacity-90 space-y-2">
-                  <ul class="event-points">
-                    <li>Grace in every gesture, elegance in every glance.</li>
-                    <li>Fabric flows like poetry, every step speaks of stories untold.</li>
-                    <li>A canvas of creativity, where style meets soul and imagination drapes itself in colour and confidence.</li>
-                    <li>Every look is a masterpiece in motion.</li>
-                  </ul>
-                </div>
+            <div class="quick-access-card card-orbit bg-gray-800 p-8 rounded-lg relative hover:ring-2 hover:ring-cyan-400 transition-shadow duration-200 pop-animate" style="cursor:pointer;" data-aos="zoom-in" data-aos-delay="400">
+              <div class="event-status-indicator absolute top-4 right-4"></div>
+              <h3 class="event-heading-serif text-2xl md:text-3xl font-bold text-cyan-100">Nazakat</h3>
+              <div class="text-sm opacity-90 space-y-2">
+                <ul class="event-points">
+                  <li>Grace in every gesture, elegance in every glance.</li>
+                  <li>Fabric flows like poetry, every step speaks of stories untold.</li>
+                  <li>A canvas of creativity, where style meets soul and imagination drapes itself in colour and confidence.</li>
+                  <li>Every look is a masterpiece in motion.</li>
+                </ul>
               </div>
-            </a>
+              <a href="events/nazakat.html" class="event-view-btn mt-4 inline-block px-4 py-2 bg-cyan-600 text-white rounded shadow hover:bg-cyan-700 transition">View Details</a>
+            </div>
           </div>
         </div>
         <!-- Swiper navigation -->
@@ -301,8 +320,7 @@
       </h2>
       <div class="space-y-4">
         <!-- Full Timeline with All Events -->
-        <div class="card-orbit bg-gray-900 p-6 rounded-lg pop-animate"
-             onclick="showScheduleModal('6:00 AM', 'Volunteer Briefing', '150 volunteers report to Munshi Reception. ID checks and assignment distribution.')">
+        <div class="card-orbit bg-gray-900 p-6 rounded-lg pop-animate schedule-card">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
               <i class="fas fa-users"></i>
@@ -312,11 +330,11 @@
               <p class="text-sm opacity-90">Volunteer Reporting</p>
             </div>
           </div>
+          <div class="mt-4 flex justify-center">
+            <button class="view-details-btn px-4 py-2 bg-cyan-600 text-white rounded shadow hover:bg-cyan-700 transition w-full sm:w-auto" onclick="showScheduleModal('6:00 AM', 'Volunteer Briefing', '150 volunteers report to Munshi Reception. ID checks and assignment distribution.')">View Details</button>
+          </div>
         </div>
-
-        <!-- Continue with all schedule items from PDF -->
-        <div class="card-orbit bg-gray-900 p-6 rounded-lg pop-animate"
-             onclick="showScheduleModal('8:00 AM', 'Inauguration', 'Chief Guest: Alan Feldman. All schools assemble in Bharatiya Vidya Bhavan Manvila.')">
+        <div class="card-orbit bg-gray-900 p-6 rounded-lg pop-animate schedule-card">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
               <i class="fas fa-microphone"></i>
@@ -326,11 +344,11 @@
               <p class="text-sm opacity-90">Inauguration Function</p>
             </div>
           </div>
+          <div class="mt-4 flex justify-center">
+            <button class="view-details-btn px-4 py-2 bg-cyan-600 text-white rounded shadow hover:bg-cyan-700 transition w-full sm:w-auto" onclick="showScheduleModal('8:00 AM', 'Inauguration', 'Chief Guest: Alan Feldman. All schools assemble in Bharatiya Vidya Bhavan Manvila.')">View Details</button>
+          </div>
         </div>
-
-        <!-- Add all 13 schedule items with matching details from PDF -->
-        <div class="card-orbit bg-gray-900 p-6 rounded-lg pop-animate"
-             onclick="showScheduleModal('7:30 AM', 'School Registration', 'All participating schools must complete registration at Munshi Reception. ID cards will be distributed.')">
+        <div class="card-orbit bg-gray-900 p-6 rounded-lg pop-animate schedule-card">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
               <i class="fas fa-clipboard-check"></i>
@@ -340,10 +358,11 @@
               <p class="text-sm opacity-90">School Registration</p>
             </div>
           </div>
+          <div class="mt-4 flex justify-center">
+            <button class="view-details-btn px-4 py-2 bg-cyan-600 text-white rounded shadow hover:bg-cyan-700 transition w-full sm:w-auto" onclick="showScheduleModal('7:30 AM', 'School Registration', 'All participating schools must complete registration at Munshi Reception. ID cards will be distributed.')">View Details</button>
+          </div>
         </div>
-
-        <div class="card-orbit bg-gray-900 p-6 rounded-lg pop-animate"
-             onclick="showScheduleModal('9:45 AM', 'Quiz & Nataka Round 1', 'Written round for Quiz and Plot development for Nataka competition.')">
+        <div class="card-orbit bg-gray-900 p-6 rounded-lg pop-animate schedule-card">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
               <i class="fas fa-pen"></i>
@@ -353,10 +372,11 @@
               <p class="text-sm opacity-90">Quiz Round 1 & Nataka Round 1</p>
             </div>
           </div>
+          <div class="mt-4 flex justify-center">
+            <button class="view-details-btn px-4 py-2 bg-cyan-600 text-white rounded shadow hover:bg-cyan-700 transition w-full sm:w-auto" onclick="showScheduleModal('9:45 AM', 'Quiz & Nataka Round 1', 'Written round for Quiz and Plot development for Nataka competition.')">View Details</button>
+          </div>
         </div>
-
-        <div class="card-orbit bg-gray-900 p-6 rounded-lg pop-animate"
-             onclick="showScheduleModal('10:00 AM', 'Band Competition', 'Naada Nirvana band competition begins. Each team gets 8 minutes performance time.')">
+        <div class="card-orbit bg-gray-900 p-6 rounded-lg pop-animate schedule-card">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
               <i class="fas fa-music"></i>
@@ -366,10 +386,11 @@
               <p class="text-sm opacity-90">Band Competition</p>
             </div>
           </div>
+          <div class="mt-4 flex justify-center">
+            <button class="view-details-btn px-4 py-2 bg-cyan-600 text-white rounded shadow hover:bg-cyan-700 transition w-full sm:w-auto" onclick="showScheduleModal('10:00 AM', 'Band Competition', 'Naada Nirvana band competition begins. Each team gets 8 minutes performance time.')">View Details</button>
+          </div>
         </div>
-
-        <div class="card-orbit bg-gray-900 p-6 rounded-lg pop-animate"
-             onclick="showScheduleModal('11:00 AM', 'Quiz & Nataka Round 2', 'Oral round for Quiz and Script writing for Nataka competition.')">
+        <div class="card-orbit bg-gray-900 p-6 rounded-lg pop-animate schedule-card">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
               <i class="fas fa-microphone"></i>
@@ -379,10 +400,11 @@
               <p class="text-sm opacity-90">Quiz Round 2 & Nataka Round 2</p>
             </div>
           </div>
+          <div class="mt-4 flex justify-center">
+            <button class="view-details-btn px-4 py-2 bg-cyan-600 text-white rounded shadow hover:bg-cyan-700 transition w-full sm:w-auto" onclick="showScheduleModal('11:00 AM', 'Quiz & Nataka Round 2', 'Oral round for Quiz and Script writing for Nataka competition.')">View Details</button>
+          </div>
         </div>
-
-        <div class="card-orbit bg-gray-900 p-6 rounded-lg pop-animate"
-             onclick="showScheduleModal('1:00 PM', 'Lunch Break', 'Lunch will be served at Munshi Cellar for all participants and faculty.')">
+        <div class="card-orbit bg-gray-900 p-6 rounded-lg pop-animate schedule-card">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
               <i class="fas fa-utensils"></i>
@@ -392,10 +414,11 @@
               <p class="text-sm opacity-90">Lunch Break</p>
             </div>
           </div>
+          <div class="mt-4 flex justify-center">
+            <button class="view-details-btn px-4 py-2 bg-cyan-600 text-white rounded shadow hover:bg-cyan-700 transition w-full sm:w-auto" onclick="showScheduleModal('1:00 PM', 'Lunch Break', 'Lunch will be served at Munshi Cellar for all participants and faculty.')">View Details</button>
+          </div>
         </div>
-
-        <div class="card-orbit bg-gray-900 p-6 rounded-lg pop-animate"
-             onclick="showScheduleModal('2:15 PM', 'Quiz Finals', 'Final rounds of Quiz competition including Buzzer and Picture rounds.')">
+        <div class="card-orbit bg-gray-900 p-6 rounded-lg pop-animate schedule-card">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
               <i class="fas fa-trophy"></i>
@@ -405,10 +428,11 @@
               <p class="text-sm opacity-90">Quiz Finals</p>
             </div>
           </div>
+          <div class="mt-4 flex justify-center">
+            <button class="view-details-btn px-4 py-2 bg-cyan-600 text-white rounded shadow hover:bg-cyan-700 transition w-full sm:w-auto" onclick="showScheduleModal('2:15 PM', 'Quiz Finals', 'Final rounds of Quiz competition including Buzzer and Picture rounds.')">View Details</button>
+          </div>
         </div>
-
-        <div class="card-orbit bg-gray-900 p-6 rounded-lg pop-animate"
-             onclick="showScheduleModal('3:30 PM', 'Fashion Show & Nataka Finals', 'Nazakat fashion show and final enactment of Nataka competition.')">
+        <div class="card-orbit bg-gray-900 p-6 rounded-lg pop-animate schedule-card">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
               <i class="fas fa-tshirt"></i>
@@ -418,10 +442,11 @@
               <p class="text-sm opacity-90">Fashion Show & Nataka Finals</p>
             </div>
           </div>
+          <div class="mt-4 flex justify-center">
+            <button class="view-details-btn px-4 py-2 bg-cyan-600 text-white rounded shadow hover:bg-cyan-700 transition w-full sm:w-auto" onclick="showScheduleModal('3:30 PM', 'Fashion Show & Nataka Finals', 'Nazakat fashion show and final enactment of Nataka competition.')">View Details</button>
+          </div>
         </div>
-
-        <div class="card-orbit bg-gray-900 p-6 rounded-lg pop-animate"
-             onclick="showScheduleModal('4:30 PM', 'Dance Competition', 'Natya Sutra dance competition with 8-minute performances.')">
+        <div class="card-orbit bg-gray-900 p-6 rounded-lg pop-animate schedule-card">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
               <i class="fas fa-running"></i>
@@ -431,10 +456,11 @@
               <p class="text-sm opacity-90">Dance Competition</p>
             </div>
           </div>
+          <div class="mt-4 flex justify-center">
+            <button class="view-details-btn px-4 py-2 bg-cyan-600 text-white rounded shadow hover:bg-cyan-700 transition w-full sm:w-auto" onclick="showScheduleModal('4:30 PM', 'Dance Competition', 'Natya Sutra dance competition with 8-minute performances.')">View Details</button>
+          </div>
         </div>
-
-        <div class="card-orbit bg-gray-900 p-6 rounded-lg pop-animate"
-             onclick="showScheduleModal('6:30 PM', 'Closing Ceremony', 'Award distribution and closing remarks.')">
+        <div class="card-orbit bg-gray-900 p-6 rounded-lg pop-animate schedule-card">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
               <i class="fas fa-award"></i>
@@ -444,10 +470,11 @@
               <p class="text-sm opacity-90">Closing Ceremony</p>
             </div>
           </div>
+          <div class="mt-4 flex justify-center">
+            <button class="view-details-btn px-4 py-2 bg-cyan-600 text-white rounded shadow hover:bg-cyan-700 transition w-full sm:w-auto" onclick="showScheduleModal('6:30 PM', 'Closing Ceremony', 'Award distribution and closing remarks.')">View Details</button>
+          </div>
         </div>
-
-        <div class="card-orbit bg-gray-900 p-6 rounded-lg pop-animate"
-             onclick="showScheduleModal('7:30 PM', 'Concert', 'Final concert performance to conclude ADHARVA 2025.')">
+        <div class="card-orbit bg-gray-900 p-6 rounded-lg pop-animate schedule-card">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 bg-cyan-400/10 rounded-full flex items-center justify-center">
               <i class="fas fa-star"></i>
@@ -456,6 +483,9 @@
               <h3 class="font-bold">7:30–9:00 PM</h3>
               <p class="text-sm opacity-90">Concert</p>
             </div>
+          </div>
+          <div class="mt-4 flex justify-center">
+            <button class="view-details-btn px-4 py-2 bg-cyan-600 text-white rounded shadow hover:bg-cyan-700 transition w-full sm:w-auto" onclick="showScheduleModal('7:30 PM', 'Concert', 'Final concert performance to conclude ADHARVA 2025.')">View Details</button>
           </div>
         </div>
       </div>
@@ -469,8 +499,11 @@
         Coordination Team
       </h2>
       <div class="grid md:grid-cols-2 gap-8">
-        <div class="card-orbit bg-gray-800 p-6 rounded-lg pop-animate" style="transition: box-shadow 0.2s, transform 0.2s; cursor: pointer;" onclick="window.location.href='credits.html'" onmouseover="this.style.boxShadow='0 0 24px #22d3ee, 0 0 48px #0ea5e9';this.style.transform='scale(1.03)'" onmouseout="this.style.boxShadow='';this.style.transform='scale(1)';">
-          <h3 class="text-xl font-bold text-cyan-400 mb-4">Core Team</h3>
+        <div class="card-orbit bg-gray-800 p-6 rounded-lg pop-animate core-team-card" style="transition: box-shadow 0.2s, transform 0.2s; cursor: default;">
+          <div class="flex justify-between items-start mb-4">
+            <h3 class="text-xl font-bold text-cyan-400">Core Team</h3>
+            <button class="view-details-btn px-3 py-1 bg-cyan-600 text-white rounded shadow hover:bg-cyan-700 transition text-sm font-semibold" onclick="window.location.href='credits.html'">View Details</button>
+          </div>
           <ul class="space-y-2 text-sm">
             <li>3 overall student coordinators</li>
             <li>5 event coord</li>
@@ -553,6 +586,30 @@
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script>
     AOS.init();
+    // Grok's scroll/tap guard for mobile
+    let isScrolling = false;
+    let touchStartY = 0;
+    document.addEventListener('touchstart', (e) => {
+      touchStartY = e.touches[0].clientY;
+    });
+    document.addEventListener('touchmove', () => {
+      isScrolling = true;
+    });
+    document.addEventListener('touchend', (e) => {
+      const touchEndY = e.changedTouches[0].clientY;
+      const distance = Math.abs(touchStartY - touchEndY);
+      if (isScrolling && distance > 10) {
+        e.preventDefault();
+      }
+      setTimeout(() => { isScrolling = false; }, 100);
+    });
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('click', (e) => {
+        if (isScrolling) {
+          e.preventDefault();
+        }
+      });
+    });
   </script>
 </body>
 </html>
