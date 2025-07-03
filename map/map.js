@@ -179,6 +179,18 @@ loader.load('school.glb', (gltf) => {
 
                 const texture = oldMat.map || null;
                 const normalMap = oldMat.normalMap || null;
+
+                // Set nearest neighbor filtering for all textures
+                if (texture) {
+                    texture.minFilter = THREE.NearestFilter;
+                    texture.magFilter = THREE.NearestFilter;
+                    texture.needsUpdate = true;
+                }
+                if (normalMap) {
+                    normalMap.minFilter = THREE.NearestFilter;
+                    normalMap.magFilter = THREE.NearestFilter;
+                    normalMap.needsUpdate = true;
+                }
           
                 // Use MeshLambertMaterial for better shading while maintaining performance
                 node.material = new THREE.MeshLambertMaterial({
