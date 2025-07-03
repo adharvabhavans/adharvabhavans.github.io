@@ -535,3 +535,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Removed click handler for core-team-card as requested
   }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+  var brochureBtn = document.getElementById('download-brochure-btn');
+  if (brochureBtn) {
+    brochureBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (confirm('Do you want to download the brochure?')) {
+        const link = document.createElement('a');
+        link.href = 'assets/Adharva-Brochure.pdf';
+        link.download = 'Adharva-Brochure.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    });
+  }
+});

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADHARVA</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Cinzel:wght@700&family=Cormorant+Garamond:wght@700&family=Playfair+Display:wght@700;500;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" defer>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      min-height: 100vh;
+      width: 100vw;
+      overflow-x: hidden;
+      background: #01010a;
+      position: relative;
+      font-family: 'Orbitron', 'Cinzel', 'Cormorant Garamond', serif;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .stars {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .nebula {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at 60% 40%, rgba(0, 200, 255, 0.08) 0%, rgba(0,0,0,0) 60%),
+        radial-gradient(ellipse at 30% 70%, rgba(180, 0, 255, 0.06) 0%, rgba(0,0,0,0) 60%),
+        radial-gradient(ellipse at 50% 80%, rgba(0,255,200,0.04) 0%, rgba(0,0,0,0) 70%);
+      mix-blend-mode: lighten;
+      animation: nebulaMove 40s linear infinite alternate;
+    }
+    @keyframes nebulaMove {
+      0% { background-position: 60% 40%, 30% 70%, 50% 80%; }
+      100% { background-position: 55% 45%, 35% 65%, 60% 85%; }
+    }
+    .centerpiece {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 60vh;
+    }
+    .glass-text-box {
+      position: absolute;
+      top: 14vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 98vw;
+      max-width: 700px;
+      background: rgba(10, 10, 20, 0.55);
+      border-radius: 22px;
+      box-shadow: 0 4px 32px #000a, 0 0 0 1.5px #fff1 inset;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 2.2rem 2.5rem;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      gap: 2.1rem;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      color: #fff;
+      font-size: 1.25rem;
+      font-weight: 500;
+      line-height: 1.7;
+      text-align: center;
+      letter-spacing: 0.01em;
+      text-shadow: 0 2px 24px #000a, 0 0 8px #ffd70033;
+      pointer-events: auto;
+      opacity: 0.97;
+      animation: glassFadeIn 1.7s cubic-bezier(.77,0,.18,1) 0.7s both;
+    }
+    .glass-text-box p {
+      margin: 0;
+      padding: 0;
+      font-size: 1em;
+      font-weight: 500;
+      line-height: 1.7;
+      color: inherit;
+      text-shadow: inherit;
+      text-align: center;
+      margin-bottom: 0.7em;
+    }
+    @media (max-width: 700px) {
+      .glass-text-box {
+        font-size: 0.97rem;
+        padding: 1.2rem 1.1rem;
+        max-width: 92vw;
+        top: 7vw;
+        border-radius: 14px;
+        gap: 1.5rem;
+        line-height: 1.85;
+      }
+      .glass-text-box p {
+        font-size: 1em;
+        margin-bottom: 1.1em;
+        line-height: 1.85;
+      }
+    }
+    @keyframes glassFadeIn {
+      from { opacity: 0; transform: translateX(-50%) translateY(30px) scale(0.98); }
+      to { opacity: 0.97; transform: translateX(-50%) translateY(0) scale(1); }
+    }
+    .logo-glow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 0 36px #00eaff99) drop-shadow(0 0 60px #00cfff44);
+      animation: fadeIn 2s cubic-bezier(.77,0,.18,1) 0.5s both, pulseGlow 4s ease-in-out infinite;
+    }
+    .logo-glow img {
+      width: 1100px;
+      max-width: 99vw;
+      height: auto;
+      user-select: none;
+      opacity: 0.32;
+    }
+    @media (max-width: 600px) {
+      .logo-glow img {
+        width: 99vw;
+        max-width: 99vw;
+      }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(40px) scale(0.98); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes pulseGlow {
+      0%, 100% { filter: drop-shadow(0 0 36px #00eaff99) drop-shadow(0 0 60px #00cfff44); }
+      50% { filter: drop-shadow(0 0 60px #00eaffbb) drop-shadow(0 0 100px #00cfff66); }
+    }
+    .legacy-text {
+      position: relative;
+      margin: 5vh auto 2.5rem auto;
+      max-width: 700px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      font-family: 'Playfair Display', serif;
+      color: #ffd700;
+      font-size: 2.2rem;
+      font-weight: 500;
+      line-height: 1.7;
+      text-align: center;
+      letter-spacing: 0.01em;
+      text-shadow: 0 2px 32px #000c, 0 0 18px #ffd70088, 0 0 2px #000;
+      opacity: 0;
+    }
+    .legacy-text p {
+      margin: 0;
+      padding: 0 2vw;
+      font-size: 1em;
+      font-weight: 500;
+      line-height: 1.7;
+      color: inherit;
+      text-shadow: inherit;
+      text-align: center;
+    }
+    @media (max-width: 900px) {
+      .legacy-text {
+        font-size: 1.1rem;
+        max-width: 95vw;
+      }
+    }
+    @keyframes legacyFadeIn {
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+    .back-btn {
+      display: inline-block;
+      margin: 0 auto;
+      padding: 0.7em 2.2em;
+      background: linear-gradient(90deg, #00eaff 60%, #0077ff 100%);
+      color: #fff;
+      font-family: 'Orbitron', 'Space Mono', 'Fira Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 999px;
+      box-shadow: 0 2px 16px #00eaff44;
+      cursor: pointer;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+      text-align: center;
+    }
+    .back-btn:hover, .back-btn:focus {
+      background: linear-gradient(90deg, #00cfff 60%, #0055aa 100%);
+      box-shadow: 0 4px 24px #00eaff77;
+      transform: translateY(-2px) scale(1.04);
+      color: #fff;
+      outline: none;
+    }
+    .explore-btn {
+      text-decoration: none !important;
+    }
+  </style>
+</head>
+<body>
+  <canvas class="stars"></canvas>
+  <div class="nebula"></div>
+  <div class="centerpiece">
+    <div class="glass-text-box">
+      <p>A sun rises where stars once dared to shine. Adharva begins not as an event, but as the birth of an era, a legacy etched in fire, ready to eclipse them all.</p>
+      <p>This tale tells us the beauty of dreaming together, working together and emerging as one.<br>
+Adharva, a harmonious blend of unity, inventiveness and a history waiting to be forged.</p>
+      <p>Fueled by the ink of boundless imagination, the spirit of creation flows through every heartbeat of this fest. Adharva is the first flame of a tradition that shall burn right through time. From the grandest vision to the tiniest touch, every part of Adharva was built with purpose and passion.</p>
+      <p>This fest marks a monumental beginning towards a timeless journey towards legacy.<br>
+Thorough this endeavor, we begin the shaping of a tradition destined to outlive us.</p>
+      <p style="margin-top:1.5em; line-height:2; font-style:italic;">
+        A Spark Becomes A Flame,<br>
+        And From That Flame,<br>
+        A Legacy Will Be Forged.<br>
+        <b>This is Adharva</b>
+      </p>
+      <div class="text-center mt-8">
+        <a href="index.html" class="explore-btn" style="margin-left:auto; margin-right:auto; display:block; max-width:320px;">
+          <i class="fas fa-arrow-left mr-2"></i>Back to Website
+        </a>
+      </div>
+    </div>
+    <div class="logo-glow">
+      <img src="assets/transparent.svg" alt="Adharva Fest Logo" draggable="false" />
+    </div>
+  </div>
+  <script>
+    // Starfield animation with twinkle, parallax, and shooting star
+    const canvas = document.querySelector('.stars');
+    const ctx = canvas.getContext('2d');
+    let w, h, stars, parallaxStars, shootingStar = null, shootingTimer = 0;
+    function resize() {
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = w;
+      canvas.height = h;
+      createStars();
+    }
+    function createStars() {
+      // Main stars
+      stars = [];
+      for (let i = 0; i < 180; i++) {
+        stars.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: Math.random() * 1.5 + 0.2,
+          baseO: Math.random() * 0.7 + 0.3,
+          o: 1,
+          drift: (Math.random() - 0.5) * 0.03,
+          speed: Math.random() * 0.06 + 0.01,
+          twinkleSpeed: Math.random() * 0.02 + 0.01,
+          twinklePhase: Math.random() * Math.PI * 2
+        });
+      }
+      // Parallax stars (bigger, blurrier, slower)
+      parallaxStars = [];
+      for (let i = 0; i < 40; i++) {
+        parallaxStars.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: Math.random() * 3 + 1.5,
+          baseO: Math.random() * 0.18 + 0.07,
+          o: 1,
+          drift: (Math.random() - 0.5) * 0.01,
+          speed: Math.random() * 0.02 + 0.003,
+          twinkleSpeed: Math.random() * 0.01 + 0.005,
+          twinklePhase: Math.random() * Math.PI * 2
+        });
+      }
+    }
+    function drawStars() {
+      ctx.clearRect(0, 0, w, h);
+      // Parallax stars
+      for (const s of parallaxStars) {
+        s.twinklePhase += s.twinkleSpeed;
+        s.o = s.baseO + Math.sin(s.twinklePhase) * s.baseO * 0.7;
+        ctx.save();
+        ctx.globalAlpha = s.o;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, 2 * Math.PI);
+        ctx.fillStyle = '#b6eaff';
+        ctx.shadowColor = '#b6eaff';
+        ctx.shadowBlur = 18;
+        ctx.fill();
+        ctx.restore();
+        s.x += s.drift;
+        s.y += s.speed;
+        if (s.y > h + 2) s.y = -2;
+        if (s.x < -2) s.x = w + 2;
+        if (s.x > w + 2) s.x = -2;
+      }
+      // Main stars
+      for (const s of stars) {
+        s.twinklePhase += s.twinkleSpeed;
+        s.o = s.baseO + Math.sin(s.twinklePhase) * s.baseO * 0.7;
+        ctx.save();
+        ctx.globalAlpha = s.o;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, 2 * Math.PI);
+        ctx.fillStyle = '#fff';
+        ctx.shadowColor = '#aee7ff';
+        ctx.shadowBlur = 12;
+        ctx.fill();
+        ctx.restore();
+        s.x += s.drift;
+        s.y += s.speed;
+        if (s.y > h + 2) s.y = -2;
+        if (s.x < -2) s.x = w + 2;
+        if (s.x > w + 2) s.x = -2;
+      }
+      // Shooting star
+      if (shootingStar) {
+        ctx.save();
+        ctx.globalAlpha = shootingStar.alpha;
+        let grad = ctx.createLinearGradient(
+          shootingStar.x, shootingStar.y,
+          shootingStar.x - shootingStar.dx * 30, shootingStar.y - shootingStar.dy * 30
+        );
+        grad.addColorStop(0, '#fff');
+        grad.addColorStop(1, 'rgba(0,255,255,0)');
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 2.2;
+        ctx.beginPath();
+        ctx.moveTo(shootingStar.x, shootingStar.y);
+        ctx.lineTo(shootingStar.x - shootingStar.dx * 30, shootingStar.y - shootingStar.dy * 30);
+        ctx.stroke();
+        ctx.restore();
+        shootingStar.x += shootingStar.dx * shootingStar.speed;
+        shootingStar.y += shootingStar.dy * shootingStar.speed;
+        shootingStar.alpha -= 0.012;
+        if (
+          shootingStar.x < -50 || shootingStar.x > w + 50 ||
+          shootingStar.y < -50 || shootingStar.y > h + 50 ||
+          shootingStar.alpha <= 0
+        ) {
+          shootingStar = null;
+        }
+      }
+      // Shooting star timer
+      shootingTimer++;
+      if (!shootingStar && shootingTimer > 1800 + Math.random() * 1200) { // every 30-50s
+        shootingTimer = 0;
+        let angle = Math.random() * Math.PI / 3 + Math.PI / 6; // 30-60 deg
+        let fromEdge = Math.random() < 0.5;
+        let x = fromEdge ? Math.random() * w : (Math.random() < 0.5 ? -20 : w + 20);
+        let y = fromEdge ? (Math.random() < 0.5 ? -20 : h + 20) : Math.random() * h;
+        let dx = Math.cos(angle), dy = Math.sin(angle);
+        shootingStar = {
+          x, y, dx, dy,
+          speed: 12 + Math.random() * 6,
+          alpha: 1
+        };
+      }
+      requestAnimationFrame(drawStars);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+    drawStars();
+  </script>
+</body>
+</html> 
