@@ -11,19 +11,19 @@ export const LABEL_INFO = {
     BHISHMA_BLOCK: {
         name: 'Bhishma Block',
         position: new THREE.Vector2(-15, 10),
-        description: 'Main academic block named after Bhishma',
+        description: 'Academic block containing:\n\n- Classes 9-12\n- Labs for different subjects\n- New Computer Lab\n- Principal\'s office, school office and other offices',
         color: '#00FFFF'
     },
     VYASA_BLOCK: {
         name: 'Vyasa Block',
         position: new THREE.Vector2(15, -60),
-        description: 'Academic block named after Vyasa',
+        description: 'Academic block containing:\n\n- Mainly lower classes\n- Old computer lab\n- Library\n- Honesty Store\n- PE Room',
         color: '#00FFFF'
     },
     GANDHI_BLOCK: {
         name: 'Gandhi (Nursery) Block',
         position: new THREE.Vector2(-10, -50),
-        description: 'Nursery block named after Mahatma Gandhi',
+        description: 'Nursery block, containing smaller classes as well as a few other departments.',
         color: '#00FFFF'
     },
     MUNSHI_AUDITORIUM: {

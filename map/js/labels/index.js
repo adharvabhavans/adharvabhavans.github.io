@@ -130,34 +130,36 @@ function showSidebar(labelKey) {
     sidebarDiv.className = 'map-label-sidebar';
     sidebarDiv.setAttribute('data-no-pointer-lock', 'true');
     sidebarDiv.style.pointerEvents = 'auto';
-    // Style to match UI
+    // Style to match map UI (from createContainer in ui.js)
     sidebarDiv.style.position = 'absolute';
     sidebarDiv.style.top = '70px'; // below mode selector
     sidebarDiv.style.left = '20px';
     sidebarDiv.style.width = '320px';
-    sidebarDiv.style.background = 'rgba(17, 23, 39, 0.97)';
-    sidebarDiv.style.border = '2px solid #22d3ee';
-    sidebarDiv.style.borderRadius = '1.5rem';
-    sidebarDiv.style.boxShadow = '0 8px 32px 0 #22d3ee44, 0 0 40px 8px #0ea5e944, 0 0 0 4px #22d3ee88';
-    sidebarDiv.style.padding = '2rem 1.5rem 1.5rem 1.5rem';
-    sidebarDiv.style.color = '#e0f5ff';
-    sidebarDiv.style.fontFamily = 'Space Mono, monospace';
+    sidebarDiv.style.background = 'rgba(0, 0, 0, 0.7)';
+    sidebarDiv.style.borderRadius = '5px';
+    sidebarDiv.style.color = 'white';
+    sidebarDiv.style.fontFamily = 'Arial, sans-serif';
+    sidebarDiv.style.padding = '18px 16px 16px 16px';
     sidebarDiv.style.zIndex = '2000';
-    sidebarDiv.style.transition = 'box-shadow 0.3s, background 0.3s';
     sidebarDiv.style.display = 'flex';
     sidebarDiv.style.flexDirection = 'column';
     sidebarDiv.style.gap = '1.2rem';
+    sidebarDiv.style.boxShadow = '0 2px 12px 0 rgba(34, 211, 238, 0.12)';
+    sidebarDiv.style.maxHeight = '70vh';
+    sidebarDiv.style.overflowY = 'auto';
+    sidebarDiv.style.border = 'none';
+    sidebarDiv.style.transition = 'box-shadow 0.3s, background 0.3s';
 
     // Close button
     const closeBtn = document.createElement('button');
     closeBtn.textContent = '×';
     closeBtn.style.position = 'absolute';
-    closeBtn.style.top = '1rem';
-    closeBtn.style.right = '1.2rem';
+    closeBtn.style.top = '8px';
+    closeBtn.style.right = '12px';
     closeBtn.style.background = 'none';
     closeBtn.style.border = 'none';
     closeBtn.style.color = '#67e8f9';
-    closeBtn.style.fontSize = '2rem';
+    closeBtn.style.fontSize = '1.7rem';
     closeBtn.style.cursor = 'pointer';
     closeBtn.style.transition = 'color 0.2s';
     closeBtn.addEventListener('mouseenter', () => closeBtn.style.color = '#22d3ee');
@@ -171,17 +173,17 @@ function showSidebar(labelKey) {
     // Title
     const title = document.createElement('div');
     title.textContent = info.name;
-    title.style.fontSize = '1.5rem';
+    title.style.fontSize = '1.3rem';
     title.style.fontWeight = 'bold';
     title.style.color = '#67e8f9';
-    title.style.marginBottom = '0.5rem';
+    title.style.marginBottom = '0.3rem';
     sidebarDiv.appendChild(title);
 
     // Description
     if (info.description) {
         const desc = document.createElement('div');
-        desc.textContent = info.description;
-        desc.style.fontSize = '1.1rem';
+        desc.innerHTML = info.description.replace(/\\n/g, '<br>').replace(/\n/g, '<br>');
+        desc.style.fontSize = '1.05rem';
         desc.style.opacity = '0.92';
         sidebarDiv.appendChild(desc);
     }
@@ -195,15 +197,11 @@ function showSidebar(labelKey) {
         img.style.margin = '1.2rem auto 0 auto';
         img.style.maxWidth = '90%';
         img.style.maxHeight = '180px';
-        img.style.borderRadius = '1rem';
+        img.style.borderRadius = '0.7rem';
         img.style.boxShadow = '0 2px 16px #22d3ee33';
         img.style.objectFit = 'cover';
         sidebarDiv.appendChild(img);
     }
-
-    // Make sidebar scrollable if content overflows
-    sidebarDiv.style.maxHeight = '70vh';
-    sidebarDiv.style.overflowY = 'auto';
 
     document.body.appendChild(sidebarDiv);
 } 
