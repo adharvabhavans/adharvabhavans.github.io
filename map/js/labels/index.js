@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
-import { MODES, CAMERA_CONFIG } from '/map/js/constants.js';
+import { LABEL_INFO } from './constants.js';
+import { CAMERA_CONFIG, MODES } from '../constants.js';
 
 export class LabelManager {
     constructor(scene, camera) {
@@ -26,7 +27,7 @@ export class LabelManager {
     }
 
     createLabel(text, xyPosition, className = '', color = 'white') {
-        console.log('Creating label:', text, 'at xz position:', xyPosition);
+        // console.log('Creating label:', text, 'at xz position:', xyPosition);
         
         // Create a ray from high above the point
         const rayStart = new THREE.Vector3(xyPosition.x, 1000, xyPosition.y);
@@ -46,12 +47,12 @@ export class LabelManager {
         let yPosition = CAMERA_CONFIG.defaultHeight; // Default height if no intersection found
         
         if (intersects.length > 0) {
-            console.log('intersects with y', intersects[0].point.y);
+            // console.log('intersects with y', intersects[0].point.y);
             yPosition = intersects[0].point.y + 10; // Add some height above the surface
         }
         
         const position = new THREE.Vector3(xyPosition.x, yPosition, xyPosition.y);
-        console.log('Final label position:', position);
+        // console.log('Final label position:', position);
 
         const div = document.createElement('div');
         div.className = `label ${className}`;
@@ -62,10 +63,26 @@ export class LabelManager {
         div.style.borderRadius = '3px';
         div.style.fontFamily = 'Arial, sans-serif';
         div.style.fontSize = '14px';
-        div.style.pointerEvents = 'none';
+        div.style.pointerEvents = 'auto';
         div.style.userSelect = 'none';
         div.style.zIndex = '9999';
         div.style.textShadow = '0 0 3px rgba(0, 0, 0, 1.0)';
+        div.style.transition = 'box-shadow 0.2s, background 0.2s, color 0.2s';
+        div.style.cursor = 'pointer';
+        div.addEventListener('mouseenter', () => {
+            div.style.background = 'rgba(34, 211, 238, 0.4)';
+            div.style.boxShadow = '0 0 12px 2px #22d3ee88';
+            div.style.color = '#67e8f9';
+        });
+        div.addEventListener('mouseleave', () => {
+            div.style.background = 'rgba(0, 0, 0, 0.6)';
+            div.style.boxShadow = '';
+            div.style.color = color;
+        });
+        div.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showSidebar(text);
+        });
 
         const label = new CSS2DObject(div);
         label.position.copy(position);
@@ -97,4 +114,96 @@ export class LabelManager {
     handleResize() {
         this.labelRenderer.setSize(window.innerWidth, window.innerHeight);
     }
+}
+
+let sidebarDiv = null;
+
+function showSidebar(labelKey) {
+    // Remove existing sidebar if present
+    if (sidebarDiv) {
+        sidebarDiv.remove();
+        sidebarDiv = null;
+    }
+    const info = Object.values(LABEL_INFO).find(l => l.name === labelKey);
+    if (!info) return;
+    sidebarDiv = document.createElement('div');
+    sidebarDiv.className = 'map-label-sidebar';
+    sidebarDiv.setAttribute('data-no-pointer-lock', 'true');
+    sidebarDiv.style.pointerEvents = 'auto';
+    // Style to match UI
+    sidebarDiv.style.position = 'absolute';
+    sidebarDiv.style.top = '70px'; // below mode selector
+    sidebarDiv.style.left = '20px';
+    sidebarDiv.style.width = '320px';
+    sidebarDiv.style.background = 'rgba(17, 23, 39, 0.97)';
+    sidebarDiv.style.border = '2px solid #22d3ee';
+    sidebarDiv.style.borderRadius = '1.5rem';
+    sidebarDiv.style.boxShadow = '0 8px 32px 0 #22d3ee44, 0 0 40px 8px #0ea5e944, 0 0 0 4px #22d3ee88';
+    sidebarDiv.style.padding = '2rem 1.5rem 1.5rem 1.5rem';
+    sidebarDiv.style.color = '#e0f5ff';
+    sidebarDiv.style.fontFamily = 'Space Mono, monospace';
+    sidebarDiv.style.zIndex = '2000';
+    sidebarDiv.style.transition = 'box-shadow 0.3s, background 0.3s';
+    sidebarDiv.style.display = 'flex';
+    sidebarDiv.style.flexDirection = 'column';
+    sidebarDiv.style.gap = '1.2rem';
+
+    // Close button
+    const closeBtn = document.createElement('button');
+    closeBtn.textContent = '×';
+    closeBtn.style.position = 'absolute';
+    closeBtn.style.top = '1rem';
+    closeBtn.style.right = '1.2rem';
+    closeBtn.style.background = 'none';
+    closeBtn.style.border = 'none';
+    closeBtn.style.color = '#67e8f9';
+    closeBtn.style.fontSize = '2rem';
+    closeBtn.style.cursor = 'pointer';
+    closeBtn.style.transition = 'color 0.2s';
+    closeBtn.addEventListener('mouseenter', () => closeBtn.style.color = '#22d3ee');
+    closeBtn.addEventListener('mouseleave', () => closeBtn.style.color = '#67e8f9');
+    closeBtn.addEventListener('click', () => {
+        sidebarDiv.remove();
+        sidebarDiv = null;
+    });
+    sidebarDiv.appendChild(closeBtn);
+
+    // Title
+    const title = document.createElement('div');
+    title.textContent = info.name;
+    title.style.fontSize = '1.5rem';
+    title.style.fontWeight = 'bold';
+    title.style.color = '#67e8f9';
+    title.style.marginBottom = '0.5rem';
+    sidebarDiv.appendChild(title);
+
+    // Description
+    if (info.description) {
+        const desc = document.createElement('div');
+        desc.textContent = info.description;
+        desc.style.fontSize = '1.1rem';
+        desc.style.opacity = '0.92';
+        sidebarDiv.appendChild(desc);
+    }
+
+    // Optional image
+    if (info.image) {
+        const img = document.createElement('img');
+        img.src = info.image;
+        img.alt = info.name;
+        img.style.display = 'block';
+        img.style.margin = '1.2rem auto 0 auto';
+        img.style.maxWidth = '90%';
+        img.style.maxHeight = '180px';
+        img.style.borderRadius = '1rem';
+        img.style.boxShadow = '0 2px 16px #22d3ee33';
+        img.style.objectFit = 'cover';
+        sidebarDiv.appendChild(img);
+    }
+
+    // Make sidebar scrollable if content overflows
+    sidebarDiv.style.maxHeight = '70vh';
+    sidebarDiv.style.overflowY = 'auto';
+
+    document.body.appendChild(sidebarDiv);
 } 

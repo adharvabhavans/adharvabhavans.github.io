@@ -4,8 +4,9 @@ export const LABEL_INFO = {
     BASKETBALL_COURT: {
         name: 'Basketball Court',
         position: new THREE.Vector2(-15, -15),
-        description: 'Outdoor basketball court for sports activities',
-        color: '#00FF00'  // white
+        description: 'Outdoor basketball court with 2 hoops, colored floor and modern facilities, for sports activities',
+        color: '#00FF00',  // green
+        image: '/map/irl_basketball.jpeg' // Optional: path or URL to image
     },
     BHISHMA_BLOCK: {
         name: 'Bhishma Block',
