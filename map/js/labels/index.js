@@ -25,7 +25,7 @@ export class LabelManager {
         this.cameraController = cameraController;
     }
 
-    createLabel(text, xyPosition, className = '') {
+    createLabel(text, xyPosition, className = '', color = 'white') {
         console.log('Creating label:', text, 'at xz position:', xyPosition);
         
         // Create a ray from high above the point
@@ -56,7 +56,7 @@ export class LabelManager {
         const div = document.createElement('div');
         div.className = `label ${className}`;
         div.textContent = text;
-        div.style.color = 'white';
+        div.style.color = color;
         div.style.padding = '3px 8px';
         div.style.background = 'rgba(0, 0, 0, 0.6)';
         div.style.borderRadius = '3px';

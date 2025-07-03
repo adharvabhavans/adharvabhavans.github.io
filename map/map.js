@@ -215,7 +215,7 @@ loader.load('school.glb', (gltf) => {
 
     // Create all labels from constants
     Object.values(LABEL_INFO).forEach(labelInfo => {
-        labelManager.createLabel(labelInfo.name, labelInfo.position);
+        labelManager.createLabel(labelInfo.name, labelInfo.position, '', labelInfo.color);
     });
 });
 
