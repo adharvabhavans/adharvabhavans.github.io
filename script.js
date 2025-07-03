@@ -496,3 +496,42 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+// === Desktop Click Handlers for Schedule & Core Team Cards ===
+document.addEventListener('DOMContentLoaded', function() {
+  // Only run on desktop (min-width: 640px)
+  if (window.innerWidth >= 640) {
+    // --- Schedule Cards ---
+    // Map schedule event names to URLs
+    const scheduleEventMap = {
+      'Quiz Round 1 & Nataka Round 1': 'events/yukti.html',
+      'Quiz Round 2 & Nataka Round 2': 'events/yukti.html',
+      'Quiz Finals': 'events/yukti.html',
+      'Band Competition': 'events/naada-nirvana.html',
+      'Dance Competition': 'events/natya-sutra.html',
+      'Fashion Show & Nataka Finals': 'events/nazakat.html',
+      'School Registration': '', // No redirect
+      'Volunteer Reporting': '', // No redirect
+      'Inauguration Function': '', // No redirect
+      'Lunch Break': '', // No redirect
+      'Closing Ceremony': '', // No redirect
+      'Concert': '', // No redirect
+    };
+    document.querySelectorAll('.schedule-card').forEach(card => {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', function(e) {
+        // Ignore clicks on the button
+        if (e.target.closest('button')) return;
+        const h3 = card.querySelector('h3');
+        if (!h3) return;
+        const eventName = h3.textContent.trim();
+        const url = scheduleEventMap[eventName] || '';
+        if (url) {
+          window.location.href = url;
+        }
+      });
+    });
+    // --- Core Team Card ---
+    // Removed click handler for core-team-card as requested
+  }
+});
