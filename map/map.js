@@ -77,6 +77,32 @@ document.addEventListener('mousedown', (e) => cameraController.handleMouseDown(e
 document.addEventListener('mousemove', (e) => cameraController.handleMouseMove(e));
 document.addEventListener('mouseup', () => cameraController.handleMouseUp());
 
+// Add touch event support for overview drag
+function adaptTouchEventToMouse(touchEvent, type) {
+    // Only handle single touch
+    if (touchEvent.touches.length > 1 && type !== 'touchend') return null;
+    const touch = (type === 'touchend') ? touchEvent.changedTouches[0] : touchEvent.touches[0];
+    return {
+        clientX: touch.clientX,
+        clientY: touch.clientY,
+        target: touchEvent.target,
+        preventDefault: () => touchEvent.preventDefault(),
+        isTouch: true,
+        // Add any other properties needed by CameraController
+    };
+}
+document.addEventListener('touchstart', (e) => {
+    const mouseEvent = adaptTouchEventToMouse(e, 'touchstart');
+    if (mouseEvent) cameraController.handleMouseDown(mouseEvent);
+}, { passive: false });
+document.addEventListener('touchmove', (e) => {
+    const mouseEvent = adaptTouchEventToMouse(e, 'touchmove');
+    if (mouseEvent) cameraController.handleMouseMove(mouseEvent);
+}, { passive: false });
+document.addEventListener('touchend', (e) => {
+    cameraController.handleMouseUp();
+}, { passive: false });
+
 // Handle window resize and orientation change
 const handleResize = () => {
     console.log("resize: handleResize");
@@ -183,3 +209,10 @@ loader.load('school.glb', (gltf) => {
 
 // Start animation loop
 renderer.setAnimationLoop(animate);
+
+// Prevent pull-to-refresh on mobile when dragging the map in overview mode
+renderer.domElement.addEventListener('touchmove', function(e) {
+    if (cameraController.isDragging) {
+        e.preventDefault();
+    }
+}, { passive: false });

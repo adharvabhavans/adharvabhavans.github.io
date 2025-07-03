@@ -144,7 +144,19 @@ export class CameraController {
             // Higher camera = faster movement, lower camera = slower movement
             const baseMoveSpeed = 0.001;
             const currentHeight = this.topDownCamera.position.y;
-            const moveSpeed = baseMoveSpeed * (currentHeight); // Scale with height
+            let moveSpeed = baseMoveSpeed * (currentHeight); // Scale with height
+
+            // Touch sensitivity adjustment
+            if (event.isTouch) {
+                // Touch event detected
+                if (window.innerWidth > window.innerHeight) {
+                    // Landscape: increase speed
+                    moveSpeed *= 1.8;
+                } else {
+                    // Portrait: decrease speed
+                    moveSpeed *= 0.7;
+                }
+            }
 
             this.topDownCamera.position.x -= deltaMove.x * moveSpeed;
             this.topDownCamera.position.z -= deltaMove.y * moveSpeed;
