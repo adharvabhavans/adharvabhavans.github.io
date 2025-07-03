@@ -260,7 +260,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Fetch event statuses from API
-  fetch('http://127.0.0.1:8000/api/v3/get/events')
+  fetch('https://api.adharvaa.com/api/v3/get/events')
     .then(res => res.json())
     .then(data => {
       // data should be an array of { name, status }
