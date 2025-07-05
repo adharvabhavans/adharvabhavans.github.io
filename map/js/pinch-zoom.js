@@ -31,8 +31,16 @@ export class PinchZoomController {
         // Touch start - handle both single touch and pinch
         document.addEventListener('touchstart', (e) => {
             if (e.touches.length === 2) {
+                // End any existing drag when starting pinch
+                if (this.cameraController.isDragging) {
+                    this.cameraController.handleMouseUp();
+                }
                 this.handlePinchStart(e);
             } else if (e.touches.length === 1) {
+                // End any existing pinch when starting single touch
+                if (this.isPinching) {
+                    this.isPinching = false;
+                }
                 // Handle single touch for camera drag
                 const mouseEvent = this.adaptTouchEventToMouse(e, 'touchstart');
                 if (mouseEvent) this.cameraController.handleMouseDown(mouseEvent);
@@ -48,6 +56,17 @@ export class PinchZoomController {
                 // Handle single touch for camera drag
                 const mouseEvent = this.adaptTouchEventToMouse(e, 'touchmove');
                 if (mouseEvent) this.cameraController.handleMouseMove(mouseEvent);
+            } else if (e.touches.length === 1 && this.isPinching) {
+                // Transition from pinch to single touch - end pinch and start drag
+                this.isPinching = false;
+                const mouseEvent = this.adaptTouchEventToMouse(e, 'touchstart');
+                if (mouseEvent) this.cameraController.handleMouseDown(mouseEvent);
+            } else if (e.touches.length === 2 && !this.isPinching) {
+                // Transition from single touch to pinch - end drag and start pinch
+                if (this.cameraController.isDragging) {
+                    this.cameraController.handleMouseUp();
+                }
+                this.handlePinchStart(e);
             }
         }, { passive: false });
 
