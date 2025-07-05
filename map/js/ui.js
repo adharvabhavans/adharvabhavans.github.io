@@ -32,6 +32,17 @@ export class UIController {
         this.modeSelector.style.top = '20px';
         this.modeSelector.style.left = '20px';
 
+        // Add "Menu:" label
+        const menuLabel = document.createElement('span');
+        menuLabel.textContent = 'Mode:';
+        menuLabel.style.color = 'white';
+        menuLabel.style.fontFamily = 'Arial, sans-serif';
+        menuLabel.style.fontSize = '14px';
+        menuLabel.style.marginRight = '8px';
+        menuLabel.style.marginLeft = '8px';
+        menuLabel.style.userSelect = 'none';
+        this.modeSelector.appendChild(menuLabel);
+
         Object.values(MODES).forEach(mode => {
             this.modeSelector.appendChild(this.createModeButton(mode));
         });
