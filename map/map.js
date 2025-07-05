@@ -8,7 +8,7 @@ import { MovementController } from './js/movement.js';
 import { UIController } from './js/ui.js';
 import { LabelManager } from './js/labels/index.js';
 import { LABEL_INFO } from './js/labels/constants.js';
-import { PinchZoomController } from './js/pinch-zoom.js';
+import { PinchZoomController } from './js/mobile.js';
 
 // Scene setup
 const scene = new THREE.Scene();
