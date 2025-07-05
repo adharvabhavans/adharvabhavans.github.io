@@ -48,3 +48,34 @@ export const SKY_CONFIG = {
     offset: 33,
     exponent: 0.4
 }; 
+
+export const MODE_CONTENT = {
+    [MODES.OVERVIEW]: `
+        <div style="font-size: 0.9rem; line-height: 1.4;">
+            <div style="font-weight: bold; color: #67e8f9; margin-bottom: 0.5rem;">Overview Mode</div>
+            <div style="opacity: 0.9;">
+                • Click/drag/swipe to move around<br>
+                • Scroll or use slider to zoom in/out<br>
+                • Click the labels for info<br><br>
+
+                In this mode, you can view the
+                school and locations from above.
+            </div>
+        </div>
+    `,
+    [MODES.EXPLORE]: `
+        <div style="font-size: 0.9rem; line-height: 1.4;">
+            <div style="font-weight: bold; color: #67e8f9; margin-bottom: 0.5rem;">Explore Mode</div>
+            <div style="opacity: 0.9;">
+                • Use <b>W, A, S, D</b> keys to move<br>
+                • Use <b>Space</b> to go up and <b>Shift</b> to go down<br>
+                • Move mouse to look around<br>
+                • Press <b>Escape</b> to unlock your mouse<br>
+                • Scroll or use slider for movement speed<br><br>
+                
+                Experience the campus in 3D!
+                Feel free to explore the buildings and their interiors!
+            </div>
+        </div>
+    `
+};
