@@ -1,6 +1,6 @@
 import { MODES, CAMERA_CONFIG } from './constants.js';
 
-export class PinchZoomController {
+export class TouchController {
     constructor(cameraController, uiController) {
         this.cameraController = cameraController;
         this.uiController = uiController;

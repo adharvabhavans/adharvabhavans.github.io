@@ -8,7 +8,7 @@ import { MovementController } from './js/movement.js';
 import { UIController } from './js/ui.js';
 import { LabelManager } from './js/labels/index.js';
 import { LABEL_INFO } from './js/labels/constants.js';
-import { PinchZoomController } from './js/mobile.js';
+import { TouchController } from './js/mobile.js';
 
 // Scene setup
 const scene = new THREE.Scene();
@@ -63,7 +63,7 @@ const cameraController = new CameraController(camera, document.body, scene);
 const movementController = new MovementController(cameraController);
 const uiController = new UIController(cameraController, movementController);
 const labelManager = new LabelManager(scene, camera);
-const pinchZoomController = new PinchZoomController(cameraController, uiController);
+const touchController = new TouchController(cameraController, uiController);
 movementController.setUIController(uiController);
 cameraController.setUIController(uiController);
 labelManager.setCameraController(cameraController);
@@ -79,8 +79,8 @@ document.addEventListener('mousedown', (e) => cameraController.handleMouseDown(e
 document.addEventListener('mousemove', (e) => cameraController.handleMouseMove(e));
 document.addEventListener('mouseup', () => cameraController.handleMouseUp());
 
-// Touch events are now handled by PinchZoomController
-// The PinchZoomController will handle both single-touch drag and two-finger pinch
+// Touch events are now handled by TouchController
+// The TouchController will handle both single-touch drag and two-finger pinch
 
 // Handle window resize and orientation change
 const handleResize = () => {
