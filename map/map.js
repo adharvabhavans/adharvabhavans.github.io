@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { MODES, CAMERA_CONFIG } from './js/constants.js';
+import { CAMERA_CONFIG } from './js/constants.js';
 import { createSky } from './js/sky.js';
 import { setupLighting } from './js/lighting.js';
 import { CameraController } from './js/camera.js';
@@ -8,6 +8,7 @@ import { MovementController } from './js/movement.js';
 import { UIController } from './js/ui.js';
 import { LabelManager } from './js/labels/index.js';
 import { LABEL_INFO } from './js/labels/constants.js';
+import { PinchZoomController } from './js/pinch-zoom.js';
 
 // Scene setup
 const scene = new THREE.Scene();
@@ -62,6 +63,7 @@ const cameraController = new CameraController(camera, document.body, scene);
 const movementController = new MovementController(cameraController);
 const uiController = new UIController(cameraController, movementController);
 const labelManager = new LabelManager(scene, camera);
+const pinchZoomController = new PinchZoomController(cameraController, uiController);
 movementController.setUIController(uiController);
 cameraController.setUIController(uiController);
 labelManager.setCameraController(cameraController);
@@ -77,31 +79,8 @@ document.addEventListener('mousedown', (e) => cameraController.handleMouseDown(e
 document.addEventListener('mousemove', (e) => cameraController.handleMouseMove(e));
 document.addEventListener('mouseup', () => cameraController.handleMouseUp());
 
-// Add touch event support for overview drag
-function adaptTouchEventToMouse(touchEvent, type) {
-    // Only handle single touch
-    if (touchEvent.touches.length > 1 && type !== 'touchend') return null;
-    const touch = (type === 'touchend') ? touchEvent.changedTouches[0] : touchEvent.touches[0];
-    return {
-        clientX: touch.clientX,
-        clientY: touch.clientY,
-        target: touchEvent.target,
-        preventDefault: () => touchEvent.preventDefault(),
-        isTouch: true,
-        // Add any other properties needed by CameraController
-    };
-}
-document.addEventListener('touchstart', (e) => {
-    const mouseEvent = adaptTouchEventToMouse(e, 'touchstart');
-    if (mouseEvent) cameraController.handleMouseDown(mouseEvent);
-}, { passive: false });
-document.addEventListener('touchmove', (e) => {
-    const mouseEvent = adaptTouchEventToMouse(e, 'touchmove');
-    if (mouseEvent) cameraController.handleMouseMove(mouseEvent);
-}, { passive: false });
-document.addEventListener('touchend', (e) => {
-    cameraController.handleMouseUp();
-}, { passive: false });
+// Touch events are now handled by PinchZoomController
+// The PinchZoomController will handle both single-touch drag and two-finger pinch
 
 // Handle window resize and orientation change
 const handleResize = () => {

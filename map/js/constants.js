@@ -67,7 +67,7 @@ export const MODE_CONTENT = {
         <div style="font-size: 0.9rem; line-height: 1.4;">
             <div style="font-weight: bold; color: #67e8f9; margin-bottom: 0.5rem;">Explore Mode</div>
             <div style="opacity: 0.9;">
-                • Click anywhere to get started
+                • Click anywhere to get started<br>
                 • Use <b>W, A, S, D</b> keys to move<br>
                 • Use <b>Space</b> to go up and <b>Shift</b> to go down<br>
                 • Move mouse to look around<br>

@@ -7,6 +7,8 @@ constants:
 labels/
     constants:
     index: labels/constants
+
+pinch-zoom: constants
 camera:     constants
 lighting:   constants
 movement:   constants
@@ -14,5 +16,7 @@ sky:        constants
 ui:         constants
 
 map:        ui
-            label
+            labels/constants
+            labels/index
+            pinch-zoom
 ```
